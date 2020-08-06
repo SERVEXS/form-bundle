@@ -55,7 +55,7 @@
             <argument>%genemu.form.select2.configs%</argument>
             <tag name="form.type" />
         </service>
-        <service id="genemu.form.jquery.type.select2timezone" class="Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2TimeZoneType">
+        <service id="genemu.form.jquery.type.select2timezone" class="Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2TimezoneType">
             <argument>%genemu.form.select2.configs%</argument>
             <tag name="form.type" />
         </service>
