@@ -11,13 +11,13 @@
 
 namespace Genemu\Bundle\FormBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 
 /**
  * GenemuFormExtension.
@@ -249,6 +249,21 @@ class GenemuFormExtension extends Extension
         $container->setDefinition($serviceId . '.document', $mongoDef);
 
 
+    }
+
+    private function registerSelect2Configuration(array $configs, ContainerBuilder $container)
+    {
+        $serviceId = 'genemu.form.jquery.type.select2';
+        foreach (array_merge($this->getChoiceTypeNames(), array('hidden')) as $type) {
+            $typeDef = new ChildDefinition($serviceId);
+            $typeDef
+                ->addArgument($type)
+                ->addArgument($configs['configs'])
+                ->addTag('form.type', array('alias' => 'genemu_jqueryselect2_'.$type))
+            ;
+
+            $container->setDefinition($serviceId.'.'.$type, $typeDef);
+        }
     }
 
     /**
