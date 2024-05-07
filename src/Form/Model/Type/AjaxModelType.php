@@ -11,7 +11,7 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Model\Type;
 
-use Form\Model\ChoiceList\AjaxModelChoiceList;
+use Genemu\Bundle\FormBundle\Form\Model\ChoiceList\AjaxModelChoiceList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;

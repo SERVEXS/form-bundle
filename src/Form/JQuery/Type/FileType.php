@@ -11,8 +11,8 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
-use Form\JQuery\DataTransformer\FileToValueTransformer;
 use Genemu\Bundle\FormBundle\Form\Core\EventListener\FileListener;
+use Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer\FileToValueTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;

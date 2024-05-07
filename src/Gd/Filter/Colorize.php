@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Gd\Filter;
+namespace Genemu\Bundle\FormBundle\Gd\Filter;
 
-use Gd\Gd;
+use Genemu\Bundle\FormBundle\Gd\Gd;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>

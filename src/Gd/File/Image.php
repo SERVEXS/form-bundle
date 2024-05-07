@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Gd\File;
+namespace Genemu\Bundle\FormBundle\Gd\File;
 
 use Exception;
-use Gd\Filter\Blur;
-use Gd\Filter\Colorize;
-use Gd\Filter\Crop;
-use Gd\Filter\GrayScale;
-use Gd\Filter\Negate;
-use Gd\Filter\Opacity;
-use Gd\Filter\Rotate;
-use Gd\Gd;
+use Genemu\Bundle\FormBundle\Gd\Filter\Blur;
+use Genemu\Bundle\FormBundle\Gd\Filter\Colorize;
+use Genemu\Bundle\FormBundle\Gd\Filter\Crop;
+use Genemu\Bundle\FormBundle\Gd\Filter\GrayScale;
+use Genemu\Bundle\FormBundle\Gd\Filter\Negate;
+use Genemu\Bundle\FormBundle\Gd\Filter\Opacity;
+use Genemu\Bundle\FormBundle\Gd\Filter\Rotate;
+use Genemu\Bundle\FormBundle\Gd\Gd;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 

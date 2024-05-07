@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Gd\Filter;
+namespace Genemu\Bundle\FormBundle\Gd\Filter;
 
-use Gd\Gd;
+use Genemu\Bundle\FormBundle\Gd\Gd;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -64,18 +64,18 @@ class Text extends Gd implements Filter
         $fwm = 0;
         $texts = [];
         for ($i = 0; $i < $len; ++$i) {
-            $rotate = mt_rand(-25, 25);
-            $size = $fs + $fs * (mt_rand(0, 3) / 10);
+            $rotate = random_int(-25, 25);
+            $size = $fs + $fs * (random_int(0, 3) / 10);
 
-            $font = $this->fonts[mt_rand(0, $nbF)];
-            $color = $colors[mt_rand(0, $nbC)];
+            $font = $this->fonts[random_int(0, $nbF)];
+            $color = $colors[random_int(0, $nbC)];
 
             $box = imagettfbbox($size, $rotate, $font, $this->text[$i]);
 
             $fw = max($box[2] - $box[0], $box[4] - $box[6]);
 
             $fh = max($box[1] - $box[7], $box[3] - $box[5]);
-            $fh = $fh + ($h - $fh) / 2 + mt_rand(-$h / 10, $h / 10);
+            $fh = $fh + ($h - $fh) / 2 + random_int(-$h / 10, $h / 10);
 
             $texts[] = [
                 'value'  => $this->text[$i],

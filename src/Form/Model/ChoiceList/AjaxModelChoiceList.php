@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Form\Model\ChoiceList;
+namespace Genemu\Bundle\FormBundle\Form\Model\ChoiceList;
 
 use Closure;
 use Symfony\Bridge\Propel1\Form\ChoiceList\ModelChoiceList;

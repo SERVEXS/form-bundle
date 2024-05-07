@@ -11,7 +11,7 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
-use Gd\File\Image;
+use Genemu\Bundle\FormBundle\Gd\File\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

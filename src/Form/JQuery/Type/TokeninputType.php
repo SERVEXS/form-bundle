@@ -11,7 +11,6 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
-use Form\Core\ChoiceList\AjaxSimpleChoiceList;
 use Genemu\Bundle\FormBundle\Form\Core\DataTransformer\ChoiceToJsonTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

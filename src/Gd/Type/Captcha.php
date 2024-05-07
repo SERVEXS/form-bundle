@@ -11,12 +11,12 @@
 
 namespace Genemu\Bundle\FormBundle\Gd\Type;
 
-use Gd\Filter\Background;
-use Gd\Filter\Border;
-use Gd\Filter\GrayScale;
-use Gd\Filter\Strip;
-use Gd\Filter\Text;
-use Gd\Gd;
+use Genemu\Bundle\FormBundle\Gd\Filter\Background;
+use Genemu\Bundle\FormBundle\Gd\Filter\Border;
+use Genemu\Bundle\FormBundle\Gd\Filter\GrayScale;
+use Genemu\Bundle\FormBundle\Gd\Filter\Strip;
+use Genemu\Bundle\FormBundle\Gd\Filter\Text;
+use Genemu\Bundle\FormBundle\Gd\Gd;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -70,11 +70,11 @@ class Captcha extends Gd
             'chars' => range(0, 9),
             'length' => 4,
             'fonts' => [
-                realpath(__DIR__ . '/../../Resources/public/fonts/akbar.ttf'),
-                realpath(__DIR__ . '/../../Resources/public/fonts/brushcut.ttf'),
-                realpath(__DIR__ . '/../../Resources/public/fonts/molten.ttf'),
-                realpath(__DIR__ . '/../../Resources/public/fonts/planetbe.ttf'),
-                realpath(__DIR__ . '/../../Resources/public/fonts/whoobub.ttf'),
+                realpath(__DIR__ . '/../../../public/fonts/akbar.ttf'),
+                realpath(__DIR__ . '/../../../public/fonts/brushcut.ttf'),
+                realpath(__DIR__ . '/../../../public/fonts/molten.ttf'),
+                realpath(__DIR__ . '/../../../public/fonts/planetbe.ttf'),
+                realpath(__DIR__ . '/../../../public/fonts/whoobub.ttf'),
             ],
             'font_size' => 16,
             'font_color' => ['252525', '8B8787', '550707', '3526E6', '88531E'],

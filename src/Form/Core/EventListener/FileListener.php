@@ -11,7 +11,7 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\EventListener;
 
-use Gd\File\Image;
+use Genemu\Bundle\FormBundle\Gd\File\Image;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

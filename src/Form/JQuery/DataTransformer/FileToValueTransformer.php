@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Form\JQuery\DataTransformer;
+namespace Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
