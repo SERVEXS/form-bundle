@@ -22,10 +22,9 @@ class Strip extends Gd implements Filter
     protected $nb;
 
     /**
-     * Construct
+     * Construct.
      *
-     * @param array $colors
-     * @param int   $nb
+     * @param int $nb
      */
     public function __construct(array $colors, $nb = 15)
     {
@@ -33,9 +32,6 @@ class Strip extends Gd implements Filter
         $this->nb = $nb;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $colors = $this->allocateColors($this->colors);

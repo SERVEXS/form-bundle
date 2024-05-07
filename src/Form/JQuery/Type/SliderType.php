@@ -17,15 +17,12 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * SliderType
+ * SliderType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class SliderType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options;
@@ -46,17 +43,11 @@ class SliderType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'integer';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryslider';

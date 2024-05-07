@@ -14,15 +14,10 @@ namespace Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * {@inheritdoc}
- *
  * @author Bilal Amarni <bilal.amarni@gmail.com>
  */
 class ArrayToStringTransformer implements DataTransformerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function transform(mixed $value)
     {
         if (null === $value || !is_array($value)) {
@@ -32,9 +27,6 @@ class ArrayToStringTransformer implements DataTransformerInterface
         return implode(',', $value);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseTransform($string)
     {
         if (is_array($string)) {

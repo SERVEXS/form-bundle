@@ -12,14 +12,14 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 
 /**
- * Select2TimezoneType to JQueryLib
+ * Select2TimezoneType to JQueryLib.
  *
  * @author Bilal Amarni <bilal.amarni@gmail.com>
  * @author Chris Tickner <chris.tickner@gmail.com>
@@ -31,9 +31,6 @@ class Select2TimezoneType extends AbstractType
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options['configs'];
@@ -47,16 +44,13 @@ class Select2TimezoneType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = $this->configs;
         $resolver
             ->setDefaults([
-                'configs'       => $defaults,
-                'transformer'   => null,
+                'configs' => $defaults,
+                'transformer' => null,
             ])
             ->setNormalizer(
                 'configs',
@@ -65,17 +59,11 @@ class Select2TimezoneType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return TimezoneType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryselect2';

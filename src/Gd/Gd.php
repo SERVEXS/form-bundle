@@ -28,12 +28,9 @@ class Gd implements GdInterface
     protected $width;
     protected $height;
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkFormat($format)
     {
-        $function = 'image'.$format;
+        $function = 'image' . $format;
 
         if (!function_exists($function)) {
             return 'jpeg';
@@ -42,9 +39,6 @@ class Gd implements GdInterface
         return $format;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkResource(): void
     {
         if (!is_resource($this->resource)) {
@@ -53,7 +47,7 @@ class Gd implements GdInterface
     }
 
     /**
-     * Create thumbnail
+     * Create thumbnail.
      *
      * @param string $name
      * @param string $path
@@ -65,11 +59,11 @@ class Gd implements GdInterface
     public function createThumbnail($name, $path, $width, $height, $format = 'png', $quality = 90)
     {
         $ratio = ($this->width > $width || $this->height > $height)
-            ?(
+            ? (
                 $width > $height
-                ?$width / $height
-                :$height / $width
-            ):1;
+                ? $width / $height
+                : $height / $width
+            ) : 1;
 
         $width_tmp = $this->width * $ratio;
         $height_tmp = $this->height * $ratio;
@@ -89,7 +83,7 @@ class Gd implements GdInterface
         imagecopyresampled($tmp, $this->resource, 0, 0, 0, 0, $width_tmp, $height_tmp, $this->width, $this->height);
 
         $format = $this->checkFormat($format);
-        $generate = 'image'.$format;
+        $generate = 'image' . $format;
 
         if ('jpeg' === $format) {
             $generate($tmp, $path, $quality);
@@ -103,9 +97,7 @@ class Gd implements GdInterface
     }
 
     /**
-     * Set thumbnails
-     *
-     * @param array $thumbnails
+     * Set thumbnails.
      */
     public function setThumbnails(array $thumbnails): void
     {
@@ -115,10 +107,9 @@ class Gd implements GdInterface
     }
 
     /**
-     * Set thumbnail
+     * Set thumbnail.
      *
      * @param string $name
-     * @param File   $thumbnail
      */
     public function setThumbnail($name, File $thumbnail): void
     {
@@ -126,7 +117,7 @@ class Gd implements GdInterface
     }
 
     /**
-     * Get thumbnail
+     * Get thumbnail.
      *
      * @param string $name
      *
@@ -142,7 +133,7 @@ class Gd implements GdInterface
     }
 
     /**
-     * Get thumbnails
+     * Get thumbnails.
      *
      * @return array $thumbnails
      */
@@ -152,60 +143,48 @@ class Gd implements GdInterface
     }
 
     /**
-     * Has thumbnail
+     * Has thumbnail.
      *
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function hasThumbnail($name)
     {
         return isset($this->thumbnails[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getWidth()
     {
         return $this->width;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHeight()
     {
         return $this->height;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBase64($format = 'png')
     {
         $this->checkResource();
 
         $format = $this->checkFormat($format);
-        $generate = 'image'.$format;
+        $generate = 'image' . $format;
 
         $this->applyFilters();
 
         ob_start();
         $generate($this->resource);
 
-        return 'data:image/'.$format.';base64,'.base64_encode(ob_get_clean());
+        return 'data:image/' . $format . ';base64,' . base64_encode(ob_get_clean());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function save($path, $format = 'png', $quality = 100): void
     {
         $this->checkResource();
 
         $format = $this->checkFormat($format);
-        $generate = 'image'.$format;
+        $generate = 'image' . $format;
 
         $this->applyFilters();
 
@@ -216,17 +195,11 @@ class Gd implements GdInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addFilter(Filter $filter): void
     {
         $this->filters[] = $filter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addFilters(array $filters): void
     {
         foreach ($filters as $filter) {
@@ -234,9 +207,6 @@ class Gd implements GdInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function applyFilters(): void
     {
         $this->checkResource();
@@ -248,25 +218,16 @@ class Gd implements GdInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create($width, $height): void
     {
         $this->setResource(imagecreatetruecolor($width, $height));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reset(): void
     {
         $this->create($this->width, $this->height);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setResource($resource): void
     {
         if (!is_resource($resource)) {
@@ -280,7 +241,7 @@ class Gd implements GdInterface
     }
 
     /**
-     * Get color
+     * Get color.
      *
      * @param int $x
      * @param int $y
@@ -298,9 +259,6 @@ class Gd implements GdInterface
         return imagecolorat($this->resource, $x, $y);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function allocateColors(array $colors)
     {
         $array = [];
@@ -311,9 +269,6 @@ class Gd implements GdInterface
         return $array;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function allocateColor($color, $alpha = null)
     {
         $this->checkResource();
@@ -324,19 +279,15 @@ class Gd implements GdInterface
             return imagecolorallocatealpha($this->resource, $red, $green, $blue, 255 * $alpha);
         } else {
             return imagecolorallocate($this->resource, $red, $green, $blue);
-
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hexColor($color, $asString = false, $separator = ',')
     {
         $color = preg_replace('/[^0-9A-Fa-f]/', '', $color);
 
         if (3 === strlen($color)) {
-            $color = preg_replace ('/(?(?=[^0-9a-f])[^.]|(.))/i', '$1$1', $color);
+            $color = preg_replace('/(?(?=[^0-9a-f])[^.]|(.))/i', '$1$1', $color);
         }
 
         if (6 !== strlen($color)) {

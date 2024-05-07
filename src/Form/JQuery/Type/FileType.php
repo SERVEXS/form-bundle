@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FileType
+ * FileType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  * @author Bernhard Schussek <bernhard.schussek@symfony-project.com>
@@ -32,9 +32,6 @@ class FileType extends AbstractType
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $configs = $options['configs'];
@@ -45,9 +42,6 @@ class FileType extends AbstractType
             ->setAttribute('rootDir', $this->rootDir);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
@@ -58,9 +52,6 @@ class FileType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $configs = $this->options;
@@ -81,17 +72,11 @@ class FileType extends AbstractType
             });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'file';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryfile';

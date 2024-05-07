@@ -17,28 +17,25 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * AjaxModelType
+ * AjaxModelType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class AjaxModelType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'template'          => 'choice',
-            'multiple'          => false,
-            'expanded'          => false,
-            'class'             => null,
-            'property'          => null,
-            'query'             => null,
-            'choices'           => [],
+            'template' => 'choice',
+            'multiple' => false,
+            'expanded' => false,
+            'class' => null,
+            'property' => null,
+            'query' => null,
+            'choices' => [],
             'preferred_choices' => [],
-            'ajax'              => false,
-            'choice_list'       => function (Options $options, $previousValue) {
+            'ajax' => false,
+            'choice_list' => function (Options $options, $previousValue) {
                 if (null === $previousValue) {
                     if (!isset($options['choice_list'])) {
                         return new AjaxModelChoiceList(
@@ -56,17 +53,11 @@ class AjaxModelType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'model';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_ajaxmodel';

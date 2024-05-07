@@ -19,13 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PlainType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'widget'  => 'field',
+            'widget' => 'field',
             'read_only' => true,
             'disabled' => true,
             'date_format' => null,
@@ -39,9 +36,6 @@ class PlainType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $value = $form->getViewData();
@@ -58,10 +52,10 @@ class PlainType extends AbstractType
         } elseif ($value instanceof DateTime) {
             $dateFormat = is_int($options['date_format']) ? $options['date_format'] : DateType::DEFAULT_FORMAT;
             $timeFormat = is_int($options['time_format']) ? $options['time_format'] : DateType::DEFAULT_FORMAT;
-            $calendar   = IntlDateFormatter::GREGORIAN;
-            $pattern    = is_string($options['date_pattern']) ? $options['date_pattern'] : null;
+            $calendar = IntlDateFormatter::GREGORIAN;
+            $pattern = is_string($options['date_pattern']) ? $options['date_pattern'] : null;
 
-            $formatter  = new IntlDateFormatter(
+            $formatter = new IntlDateFormatter(
                 Locale::getDefault(),
                 $dateFormat,
                 $timeFormat,
@@ -82,9 +76,6 @@ class PlainType extends AbstractType
         $view->vars['value'] = (string) $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_plain';

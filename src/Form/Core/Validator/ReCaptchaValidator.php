@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * ReCaptchaValidator
+ * ReCaptchaValidator.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -50,7 +50,7 @@ class ReCaptchaValidator implements EventSubscriberInterface
                 'Content-Length: %d',
                 'User-Agent: reCAPTCHA/PHP',
             ];
-            $this->httpRequest = implode("\r\n", $this->httpRequest)."\r\n\r\n%s";
+            $this->httpRequest = implode("\r\n", $this->httpRequest) . "\r\n\r\n%s";
         }
     }
 

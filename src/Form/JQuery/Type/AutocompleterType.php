@@ -31,9 +31,6 @@ class AutocompleterType extends AbstractType
         $this->widget = $widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new ChoiceToJsonTransformer(
@@ -44,9 +41,6 @@ class AutocompleterType extends AbstractType
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $datas = json_decode($form->getViewData(), true);
@@ -77,9 +71,6 @@ class AutocompleterType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $widget = $this->widget;
@@ -105,9 +96,6 @@ class AutocompleterType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         if (in_array($this->widget, ['entity', 'document', 'model'], true)) {
@@ -117,9 +105,6 @@ class AutocompleterType extends AbstractType
         return $this->widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryautocompleter_' . $this->widget;

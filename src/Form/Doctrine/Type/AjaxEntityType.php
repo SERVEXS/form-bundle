@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * AjaxEntityType
+ * AjaxEntityType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -31,22 +31,19 @@ class AjaxEntityType extends AbstractType
         $this->registry = $registry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $registry = $this->registry;
 
         $resolver->setDefaults([
-            'em'            => null,
-            'class'         => null,
-            'property'      => null,
+            'em' => null,
+            'class' => null,
+            'property' => null,
             'query_builder' => null,
-            'choices'       => null,
-            'group_by'      => null,
-            'ajax'          => false,
-            'choice_list'   => function (Options $options, $previousValue) use ($registry) {
+            'choices' => null,
+            'group_by' => null,
+            'ajax' => false,
+            'choice_list' => function (Options $options, $previousValue) {
                 return new AjaxEntityChoiceList(
                     $options['em'],
                     $options['class'],
@@ -60,17 +57,11 @@ class AjaxEntityType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'entity';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_ajaxentity';

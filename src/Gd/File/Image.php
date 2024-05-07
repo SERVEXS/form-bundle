@@ -28,11 +28,8 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class Image extends File
 {
-    protected $gd = null;
+    protected $gd;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct($path, $checkPath = true)
     {
         parent::__construct($path, $checkPath);
@@ -43,13 +40,13 @@ class Image extends File
     }
 
     /**
-     * Check format image
+     * Check format image.
      *
      * @param string $format
      */
     public function checkFormat($format)
     {
-        $function = 'imagecreatefrom'.$format;
+        $function = 'imagecreatefrom' . $format;
 
         if (!function_exists($function)) {
             return $this->checkFormat('jpeg');
@@ -59,7 +56,7 @@ class Image extends File
     }
 
     /**
-     * Create thumbnail image
+     * Create thumbnail image.
      *
      * @param string $name
      * @param int    $width
@@ -69,7 +66,7 @@ class Image extends File
     {
         $ext = $this->guessExtension();
 
-        $path  = $this->getPath() . 'Image.php/';
+        $path = $this->getPath() . 'Image.php/';
         $path .= $this->getBasename('.' . $ext) . $name;
         $path .= '.' . $ext;
 
@@ -79,7 +76,7 @@ class Image extends File
     }
 
     /**
-     * Search thumbnails
+     * Search thumbnails.
      */
     public function searchThumbnails(): void
     {
@@ -106,11 +103,9 @@ class Image extends File
     }
 
     /**
-     * Get thumbnail
+     * Get thumbnail.
      *
      * @param string $name
-     *
-     * @return Image|null
      */
     public function getThumbnail($name): ?Image
     {
@@ -122,7 +117,7 @@ class Image extends File
     }
 
     /**
-     * Get thumbnails
+     * Get thumbnails.
      *
      * @return array
      */
@@ -136,11 +131,11 @@ class Image extends File
     }
 
     /**
-     * Has thumbnail
+     * Has thumbnail.
      *
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function hasThumbnail($name)
     {
@@ -152,7 +147,7 @@ class Image extends File
     }
 
     /**
-     * Add filter crop to image
+     * Add filter crop to image.
      *
      * @param int $x
      * @param int $y
@@ -165,7 +160,7 @@ class Image extends File
     }
 
     /**
-     * Add filter rotate to image
+     * Add filter rotate to image.
      *
      * @param int $rotate
      */
@@ -175,7 +170,7 @@ class Image extends File
     }
 
     /**
-     * Add filter negative to image
+     * Add filter negative to image.
      */
     public function addFilterNegative(): void
     {
@@ -183,7 +178,7 @@ class Image extends File
     }
 
     /**
-     * Add filter sepia to image
+     * Add filter sepia to image.
      *
      * @param string $color
      */
@@ -196,7 +191,7 @@ class Image extends File
     }
 
     /**
-     * Add filter gray scale to image
+     * Add filter gray scale to image.
      */
     public function addFilterBw(): void
     {
@@ -204,7 +199,7 @@ class Image extends File
     }
 
     /**
-     * Add filter blur to image
+     * Add filter blur to image.
      */
     public function addFilterBlur(): void
     {
@@ -212,7 +207,7 @@ class Image extends File
     }
 
     /**
-     * Add filter opacity to image
+     * Add filter opacity to image.
      */
     public function addFilterOpacity($opacity): void
     {
@@ -220,7 +215,7 @@ class Image extends File
     }
 
     /**
-     * Get gd manipulator
+     * Get gd manipulator.
      *
      * @return Gd
      */
@@ -238,7 +233,7 @@ class Image extends File
     }
 
     /**
-     * Get width
+     * Get width.
      *
      * @return int
      */
@@ -248,7 +243,7 @@ class Image extends File
     }
 
     /**
-     * Get height
+     * Get height.
      *
      * @return int
      */
@@ -258,7 +253,7 @@ class Image extends File
     }
 
     /**
-     * Get base64 image
+     * Get base64 image.
      *
      * @return string
      */
@@ -268,7 +263,7 @@ class Image extends File
     }
 
     /**
-     * Save image file
+     * Save image file.
      *
      * @param int $quality
      */

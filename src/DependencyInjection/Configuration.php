@@ -16,7 +16,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This class contains the configuration information for the bundle
+ * This class contains the configuration information for the bundle.
  *
  * This information is solely responsible for how the different configuration
  * sections are normalized, and merged.
@@ -25,9 +25,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('genenu_form');
@@ -48,9 +45,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add Configuration Captcha
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add Configuration Captcha.
      */
     private function addCaptcha(ArrayNodeDefinition $rootNode): void
     {
@@ -71,12 +66,12 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('chars')
                             ->defaultValue(range(0, 9))
                             ->beforeNormalization()
-                                ->ifTrue(fn($v) => !is_array($v))
-                                ->then(fn($v) => str_split($v))
+                                ->ifTrue(fn ($v) => !is_array($v))
+                                ->then(fn ($v) => str_split($v))
                             ->end()
                             ->beforeNormalization()
                                 ->always()
-                                ->then(fn($v) => array_filter($v, fn($v) => ' ' !== $v && $v))
+                                ->then(fn ($v) => array_filter($v, fn ($v) => ' ' !== $v && $v))
                             ->end()
                             ->prototype('scalar')->end()
                         ->end()
@@ -86,8 +81,8 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue(['252525', '8B8787', '550707', '3526E6', '88531E'])
                             ->beforeNormalization()
                                 ->always()
-                                ->then(function($v) {
-                                    return array_filter($v, function($v) {
+                                ->then(function ($v) {
+                                    return array_filter($v, function ($v) {
                                         $v = preg_replace('/[^0-9A-Fa-f]/', '', $v);
 
                                         return in_array(strlen($v), [3, 6]);
@@ -115,9 +110,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Recaptcha
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Recaptcha.
      */
     private function addRecaptcha(ArrayNodeDefinition $rootNode): void
     {
@@ -172,9 +165,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Tinymce
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Tinymce.
      */
     private function addTinymce(ArrayNodeDefinition $rootNode): void
     {
@@ -197,9 +188,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Date
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Date.
      */
     private function addDate(ArrayNodeDefinition $rootNode): void
     {
@@ -220,9 +209,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration File
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration File.
      */
     private function addFile(ArrayNodeDefinition $rootNode): void
     {
@@ -245,9 +232,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Image
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Image.
      */
     private function addImage(ArrayNodeDefinition $rootNode): void
     {
@@ -279,9 +264,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Tokeninput
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Tokeninput.
      */
     private function addTokeninput(ArrayNodeDefinition $rootNode): void
     {
@@ -300,9 +283,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Autocompleter
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Autocompleter.
      */
     private function addAutocompleter(ArrayNodeDefinition $rootNode): void
     {
@@ -321,9 +302,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Add configuration Autocompleter
-     *
-     * @param ArrayNodeDefinition $rootNode
+     * Add configuration Autocompleter.
      */
     private function addAutocomplete(ArrayNodeDefinition $rootNode): void
     {

@@ -47,10 +47,9 @@ class Captcha extends Gd
     private $key;
 
     /**
-     * Construct
+     * Construct.
      *
-     * @param Session $session
-     * @param string  $secret
+     * @param string $secret
      */
     public function __construct(Session $session, $secret)
     {
@@ -86,7 +85,7 @@ class Captcha extends Gd
         $options = array_intersect_key($options, $defaultOptions);
 
         foreach ($options as $key => $values) {
-            $key = preg_replace_callback('/_([a-z])/', fn($v) => strtoupper($v[1]), $key);
+            $key = preg_replace_callback('/_([a-z])/', fn ($v) => strtoupper($v[1]), $key);
 
             if ('fonts' === $key) {
                 foreach ($values as $value) {
@@ -99,12 +98,9 @@ class Captcha extends Gd
             $this->$key = $values;
         }
 
-        $this->session->set($this->key.'.options', $options);
+        $this->session->set($this->key . '.options', $options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBase64($format = 'png')
     {
         $this->create($this->width, $this->height);
@@ -125,7 +121,7 @@ class Captcha extends Gd
     }
 
     /**
-     * Get length
+     * Get length.
      *
      * @return int $length
      */
@@ -135,10 +131,9 @@ class Captcha extends Gd
     }
 
     /**
-     * Create a new code
+     * Create a new code.
      *
-     * @param array $chars
-     * @param int   $nb
+     * @param int $nb
      *
      * @return string
      */
@@ -148,7 +143,7 @@ class Captcha extends Gd
 
         if (!$this->code) {
             for ($i = 0; $i < $nb; ++$i) {
-                $value.= $chars[array_rand($chars)];
+                $value .= $chars[array_rand($chars)];
             }
 
             $value = trim($value);
@@ -162,7 +157,7 @@ class Captcha extends Gd
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string
      */
@@ -172,7 +167,7 @@ class Captcha extends Gd
     }
 
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */
@@ -182,7 +177,7 @@ class Captcha extends Gd
     }
 
     /**
-     * Remove code
+     * Remove code.
      */
     public function removeCode(): void
     {
@@ -190,7 +185,7 @@ class Captcha extends Gd
     }
 
     /**
-     * Encode a new code
+     * Encode a new code.
      *
      * @param string $code
      *
@@ -198,6 +193,6 @@ class Captcha extends Gd
      */
     public function encode($code)
     {
-        return md5($code.$this->secret);
+        return md5($code . $this->secret);
     }
 }

@@ -17,7 +17,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
- * AjaxModelChoiceList
+ * AjaxModelChoiceList.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -27,13 +27,13 @@ class AjaxModelChoiceList extends ModelChoiceList
     private $propertyPath;
 
     /**
-     * Constructs
+     * Constructs.
      *
-     * @param string         $class
-     * @param string         $property
+     * @param string        $class
+     * @param string        $property
      * @param array|Closure $choices
-     * @param QueryObject    $qo
-     * @param boolean        $ajax
+     * @param QueryObject   $qo
+     * @param bool          $ajax
      */
     public function __construct($class, $property = null, $choices = [], $qo = null, $ajax = false)
     {
@@ -46,9 +46,6 @@ class AjaxModelChoiceList extends ModelChoiceList
         parent::__construct($class, $property, $choices, $qo);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function load(): void
     {
         if (!$this->ajax) {
@@ -56,9 +53,6 @@ class AjaxModelChoiceList extends ModelChoiceList
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getChoices()
     {
         $choices = parent::getChoices();
@@ -75,9 +69,7 @@ class AjaxModelChoiceList extends ModelChoiceList
     }
 
     /**
-     * Get intersaction $choices to $ids
-     *
-     * @param array $ids
+     * Get intersaction $choices to $ids.
      *
      * @return array $intersect
      */

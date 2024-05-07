@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * CaptchaType
+ * CaptchaType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -33,9 +33,6 @@ class CaptchaType extends AbstractType
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this->captcha->setOptions($options);
@@ -46,9 +43,6 @@ class CaptchaType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $captcha = $this->captcha;
@@ -61,9 +55,6 @@ class CaptchaType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = array_merge(
@@ -74,25 +65,16 @@ class CaptchaType extends AbstractType
         $resolver->setDefaults($defaults);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return TextType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_captcha';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_captcha';

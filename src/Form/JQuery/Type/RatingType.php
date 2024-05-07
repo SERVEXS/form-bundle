@@ -19,24 +19,18 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * RatingType
+ * RatingType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  * @author Tom Adam <tomadam@instantiate.co.uk>
  */
 class RatingType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setAttribute('configs', $options['configs']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $form->getConfig()->getAttribute('configs');
@@ -45,9 +39,6 @@ class RatingType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -56,7 +47,7 @@ class RatingType extends AbstractType
             'expanded' => true,
             'choices' => function (Options $options) {
                 $choices = [];
-                for ($i = 1; $i <= $options['number']; $i++) {
+                for ($i = 1; $i <= $options['number']; ++$i) {
                     $choices[$i] = null;
                 }
 
@@ -67,17 +58,11 @@ class RatingType extends AbstractType
         $resolver->setNormalizer('expanded', fn (Options $options, $value) => true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'choice';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryrating';

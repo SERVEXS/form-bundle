@@ -17,7 +17,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 /**
- * ChoiceToJsonTransformer
+ * ChoiceToJsonTransformer.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -31,9 +31,6 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform($choices)
     {
         if (empty($choices)) {
@@ -57,16 +54,12 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
         return json_encode($choices);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseTransform($json)
     {
         $choices = json_decode(is_array($json) ? current($json) : $json, true);
 
         // Single choice list
         if (!$this->multiple) {
-
             if (empty($choices)) {
                 return '';
             }
@@ -109,7 +102,7 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
     }
 
     /**
-     * Checks if the argument has 'value' and 'label' keys
+     * Checks if the argument has 'value' and 'label' keys.
      */
     private function isSimpleValue($array)
     {
@@ -119,7 +112,7 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
     }
 
     /**
-     * Checks if the argument is an array of simple values
+     * Checks if the argument is an array of simple values.
      */
     private function isArrayValue($array)
     {
@@ -128,6 +121,7 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
                 return false;
             }
         }
+
         return true;
     }
 }

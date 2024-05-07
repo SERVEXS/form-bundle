@@ -20,7 +20,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
- * AjaxEntityChoiceList
+ * AjaxEntityChoiceList.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -33,15 +33,14 @@ class AjaxEntityChoiceList extends LazyChoiceList
     private $classMetadata;
 
     /**
-     * Constructs
+     * Constructs.
      *
-     * @param ObjectManager $em
-     * @param string $class
-     * @param string $property
-     * @param QueryBuilder $qb
+     * @param string        $class
+     * @param string        $property
+     * @param QueryBuilder  $qb
      * @param array|Closure $choices
-     * @param string $groupBy
-     * @param boolean $ajax
+     * @param string        $groupBy
+     * @param bool          $ajax
      */
     public function __construct(
         ObjectManager $em,
@@ -64,9 +63,6 @@ class AjaxEntityChoiceList extends LazyChoiceList
         parent::__construct($em, $class, $property, $loader, $choices, [], $groupBy);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function load(): void
     {
         if (!$this->ajax) {
@@ -74,9 +70,6 @@ class AjaxEntityChoiceList extends LazyChoiceList
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getChoices(): array
     {
         $choices = $this->getRemainingViews();
@@ -96,9 +89,6 @@ class AjaxEntityChoiceList extends LazyChoiceList
         return $array;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRemainingViews()
     {
         if ($this->ajax) {
@@ -108,9 +98,6 @@ class AjaxEntityChoiceList extends LazyChoiceList
         return parent::getRemainingViews();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPreferredViews()
     {
         if ($this->ajax) {
@@ -121,9 +108,7 @@ class AjaxEntityChoiceList extends LazyChoiceList
     }
 
     /**
-     * Get intersaction $choices to $ids
-     *
-     * @param array $ids
+     * Get intersaction $choices to $ids.
      *
      * @return array $intersect
      */
@@ -138,7 +123,7 @@ class AjaxEntityChoiceList extends LazyChoiceList
                 if ($this->propertyPath) {
                     $label = PropertyAccess::createPropertyAccessor()->getValue($entity, $this->propertyPath);
                 } else {
-                    $label = (string)$entity;
+                    $label = (string) $entity;
                 }
 
                 $intersect[] = [

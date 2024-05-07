@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class Base64Controller
+ * Class Base64Controller.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */

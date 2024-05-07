@@ -31,9 +31,6 @@ class GenemuFormExtension extends Extension
 {
     /**
      * Responds to the genemu_form configuration parameter.
-     *
-     * @param array $configs
-     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -47,14 +44,14 @@ class GenemuFormExtension extends Extension
         $loader->load('model.xml');
         $loader->load('jquery.xml');
 
-        if (!empty($configs['autocompleter']['doctrine']) ||
-            !empty($configs['tokeninput']['doctrine'])
+        if (!empty($configs['autocompleter']['doctrine'])
+            || !empty($configs['tokeninput']['doctrine'])
         ) {
             $loader->load('entity.xml');
         }
 
-        if (!empty($configs['autocompleter']['mongodb']) ||
-            !empty($configs['tokeninput']['mongodb'])
+        if (!empty($configs['autocompleter']['mongodb'])
+            || !empty($configs['tokeninput']['mongodb'])
         ) {
             $loader->load('mongodb.xml');
         }
@@ -86,9 +83,9 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads Captcha configuration
+     * Loads Captcha configuration.
      *
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function registerCaptchaConfiguration(array $configs, ContainerBuilder $container): void
@@ -120,9 +117,9 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads Recaptcha configuration
+     * Loads Recaptcha configuration.
      *
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function registerRecaptchaConfiguration(array $configs, ContainerBuilder $container): void
@@ -150,9 +147,9 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads Tinymce configuration
+     * Loads Tinymce configuration.
      *
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function registerTinymceConfiguration(array $configs, ContainerBuilder $container): void
@@ -173,9 +170,9 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads Date configuration
+     * Loads Date configuration.
      *
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function registerDateConfiguration(array $configs, ContainerBuilder $container): void
@@ -184,9 +181,9 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads File configuration
+     * Loads File configuration.
      *
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function registerFileConfiguration(array $configs, ContainerBuilder $container): void
@@ -212,10 +209,10 @@ class GenemuFormExtension extends Extension
     }
 
     /**
-     * Loads Image configuration
+     * Loads Image configuration.
      *
      * @param ContainerBuilder $container A ContainerBuilder instance
-     * @param array $configs A configuration array
+     * @param array            $configs   A configuration array
      */
     private function registerImageConfiguration(array $configs, ContainerBuilder $container): void
     {
@@ -280,8 +277,8 @@ class GenemuFormExtension extends Extension
     /**
      * Loads extended form types.
      *
-     * @param string $serviceId Id of the abstract service
-     * @param string $name Name of the type
+     * @param string           $serviceId Id of the abstract service
+     * @param string           $name      Name of the type
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     private function loadExtendedTypes($serviceId, $name, ContainerBuilder $container): void

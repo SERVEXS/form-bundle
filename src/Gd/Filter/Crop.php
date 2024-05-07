@@ -24,7 +24,7 @@ class Crop extends Gd implements Filter
     protected $h;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param int $x
      * @param int $y
@@ -39,9 +39,6 @@ class Crop extends Gd implements Filter
         $this->h = $h;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $tmp = $this->resource;

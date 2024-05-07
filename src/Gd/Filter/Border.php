@@ -22,7 +22,7 @@ class Border extends Gd implements Filter
     protected $size;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $color
      * @param int    $size
@@ -33,9 +33,6 @@ class Border extends Gd implements Filter
         $this->size = $size;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $color = $this->allocateColor($this->color);

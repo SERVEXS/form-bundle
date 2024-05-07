@@ -11,15 +11,15 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Select2EntityType to JQueryLib
+ * Select2EntityType to JQueryLib.
  *
  * @author Bilal Amarni <bilal.amarni@gmail.com>
  * @author Chris Tickner <chris.tickner@gmail.com>
@@ -31,9 +31,6 @@ class Select2EntityType extends AbstractType
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options['configs'];
@@ -47,9 +44,6 @@ class Select2EntityType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = $this->configs;
@@ -64,17 +58,11 @@ class Select2EntityType extends AbstractType
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return EntityType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryselect2';

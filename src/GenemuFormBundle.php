@@ -16,15 +16,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 /**
- * An extends of Symfony\Component\HttpKernel\Bundle\Bundle
+ * An extends of Symfony\Component\HttpKernel\Bundle\Bundle.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class GenemuFormBundle extends AbstractBundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

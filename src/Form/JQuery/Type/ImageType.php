@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ImageType
+ * ImageType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -29,11 +29,9 @@ class ImageType extends AbstractType
     private $filters;
 
     /**
-     * Constructs
+     * Constructs.
      *
      * @param string $selected
-     * @param array  $thumbnails
-     * @param array  $filters
      */
     public function __construct($selected, array $thumbnails, array $filters)
     {
@@ -42,9 +40,6 @@ class ImageType extends AbstractType
         $this->filters = $filters;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $configs = $options['configs'];
@@ -78,9 +73,6 @@ class ImageType extends AbstractType
         $view->vars['filters'] = $this->filters;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -91,17 +83,11 @@ class ImageType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent()
     {
         return 'genemu_jqueryfile';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix()
     {
         return 'genemu_jqueryimage';

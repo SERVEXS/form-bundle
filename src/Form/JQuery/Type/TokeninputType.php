@@ -31,9 +31,6 @@ class TokeninputType extends AbstractType
         $this->widget = $widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (isset($options['configs']['tokenLimit']) && is_numeric(
@@ -59,9 +56,6 @@ class TokeninputType extends AbstractType
             ->setAttribute('route_name', $options['route_name']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $datas = json_decode($form->getViewData(), true);
@@ -89,9 +83,6 @@ class TokeninputType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $widget = $this->widget;
@@ -128,9 +119,6 @@ class TokeninputType extends AbstractType
         $resolver->setNormalizer('configs', fn (Options $options, $configs) => array_merge($defaults, $configs));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         if (true === in_array($this->widget, ['entity', 'document', 'model'], true)) {
@@ -140,9 +128,6 @@ class TokeninputType extends AbstractType
         return $this->widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jquerytokeninput_' . $this->widget;

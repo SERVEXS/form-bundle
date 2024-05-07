@@ -22,7 +22,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ReCaptchaType
+ * ReCaptchaType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -45,9 +45,6 @@ class ReCaptchaType extends AbstractType
         $this->options = $options;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this->validator->addOptions($options['validator']);
@@ -58,9 +55,6 @@ class ReCaptchaType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
@@ -70,14 +64,11 @@ class ReCaptchaType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $configs = array_merge([
             'lang' => Locale::getDefault(),
-            ], $this->options);
+        ], $this->options);
 
         $resolver
             ->setDefaults([
@@ -94,17 +85,11 @@ class ReCaptchaType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_recaptcha';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_recaptcha';

@@ -31,16 +31,12 @@ class AutocompleteType extends AbstractType
 
     private ManagerRegistry $registry;
 
-
-    public function __construct($type, ManagerRegistry $registry = null)
+    public function __construct($type, ?ManagerRegistry $registry = null)
     {
         $this->type = $type;
         $this->registry = $registry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
@@ -58,9 +54,6 @@ class AutocompleteType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $type = $this->type;
@@ -93,7 +86,7 @@ class AutocompleteType extends AbstractType
             return $registry->getManager($manager);
         });
 
-        $resolver->setNormalizer('suggestions', function (Options $options, $suggestions) use ($type, $registry) {
+        $resolver->setNormalizer('suggestions', function (Options $options, $suggestions) use ($type) {
             if (null !== $options['route_name']) {
                 return [];
             }
@@ -108,16 +101,9 @@ class AutocompleteType extends AbstractType
                             if ($propertyPath) {
                                 $suggestions[] = PropertyAccess::createPropertyAccessor()->getValue($object, $propertyPath);
                             } elseif (method_exists($object, '__toString')) {
-                                $suggestions[] = (string)$object;
+                                $suggestions[] = (string) $object;
                             } else {
-                                throw new RuntimeException(
-                                    sprintf(
-                                        'Cannot cast object of type "%s" to string, ' .
-                                        'please implement a __toString method or ' .
-                                        'set the "property" option to the desired value.',
-                                        $object::class
-                                    )
-                                );
+                                throw new RuntimeException(sprintf('Cannot cast object of type "%s" to string, please implement a __toString method or set the "property" option to the desired value.', $object::class));
                             }
                         }
 
@@ -129,17 +115,11 @@ class AutocompleteType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'text';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryautocomplete_' . $this->type;

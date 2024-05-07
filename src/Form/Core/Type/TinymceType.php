@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * TinymceType
+ * TinymceType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -30,23 +30,17 @@ class TinymceType extends AbstractType
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options['configs'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $configs = array_merge(
             [
-            'language' => Locale::getDefault(),
-        ],
+                'language' => Locale::getDefault(),
+            ],
             $this->options
         );
 
@@ -61,20 +55,14 @@ class TinymceType extends AbstractType
                 'configs' => 'array',
                 'theme' => 'string',
             ]);
-            $resolver->setNormalizer('configs', fn (Options $options, $value) => array_merge($configs, $value));
+        $resolver->setNormalizer('configs', fn (Options $options, $value) => array_merge($configs, $value));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return TextareaType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_tinymce';

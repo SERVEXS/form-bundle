@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * DateType
+ * DateType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -31,9 +31,6 @@ class DateType extends AbstractType
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $configs = (!empty($options['configs']) ? $options['configs'] : []);
@@ -67,9 +64,6 @@ class DateType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $configs = $this->options;
@@ -78,7 +72,7 @@ class DateType extends AbstractType
             ->setDefaults([
                 'culture' => Locale::getPrimaryLanguage(Locale::getDefault()),
                 'widget' => 'choice',
-                'years' => range(date('Y') - 5, (int)date('Y') + 5),
+                'years' => range(date('Y') - 5, (int) date('Y') + 5),
                 'configs' => [
                     'dateFormat' => null,
                 ],
@@ -93,26 +87,18 @@ class DateType extends AbstractType
             });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return BaseDateType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jquerydate';
     }
 
     /**
-     * Create pattern Date Javascript
-     *
-     * @param IntlDateFormatter $formatter
+     * Create pattern Date Javascript.
      *
      * @return string pattern date of Javascript
      */

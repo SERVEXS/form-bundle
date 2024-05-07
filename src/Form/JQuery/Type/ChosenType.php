@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * ChosenType to JQueryLib
+ * ChosenType to JQueryLib.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  * @author Bilal Amarni <bilal.amarni@gmail.com>
@@ -32,9 +32,6 @@ class ChosenType extends AbstractType
         $this->widget = $widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['no_results_text'] = $options['no_results_text'];
@@ -50,9 +47,6 @@ class ChosenType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -64,17 +58,11 @@ class ChosenType extends AbstractType
             ->setNormalizer('expanded', fn (Options $options) => false);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return $this->widget;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jquerychosen_' . $this->widget;

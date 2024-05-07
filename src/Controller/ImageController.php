@@ -59,6 +59,7 @@ readonly class ImageController
             case 'blur':
                 $handle->addFilterBlur();
 
+                // no break
             default:
                 break;
         }
@@ -99,7 +100,7 @@ readonly class ImageController
     }
 
     /**
-     * Delete info after `?`
+     * Delete info after `?`.
      */
     private function stripQueryString(string $file): string
     {

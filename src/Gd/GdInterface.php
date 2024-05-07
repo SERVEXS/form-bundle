@@ -19,12 +19,12 @@ use Genemu\Bundle\FormBundle\Gd\Filter\Filter;
 interface GdInterface
 {
     /**
-     * Check if $resource is a type resource
+     * Check if $resource is a type resource.
      */
     public function checkResource();
 
     /**
-     * Check format image
+     * Check format image.
      *
      * @param string $format
      *
@@ -33,21 +33,21 @@ interface GdInterface
     public function checkFormat($format);
 
     /**
-     * Get width
+     * Get width.
      *
      * @return int $width
      */
     public function getWidth();
 
     /**
-     * Get height
+     * Get height.
      *
      * @return int $height
      */
     public function getHeight();
 
     /**
-     * Get base64 image
+     * Get base64 image.
      *
      * @param string $format
      *
@@ -56,7 +56,7 @@ interface GdInterface
     public function getBase64($format);
 
     /**
-     * Save Image GD to file
+     * Save Image GD to file.
      *
      * @param string $path
      * @param string $format
@@ -65,26 +65,22 @@ interface GdInterface
     public function save($path, $format, $quality);
 
     /**
-     * Add filter image
-     *
-     * @param Filter $filter
+     * Add filter image.
      */
     public function addFilter(Filter $filter);
 
     /**
-     * Add filters image
-     *
-     * @param array $filters
+     * Add filters image.
      */
     public function addFilters(array $filters);
 
     /**
-     * Apply all filter to image
+     * Apply all filter to image.
      */
     public function applyFilters();
 
     /**
-     * Create a new image
+     * Create a new image.
      *
      * @param int $width
      * @param int $height
@@ -93,28 +89,26 @@ interface GdInterface
 
     /**
      * Reset image
-     * Replace resource to new image
+     * Replace resource to new image.
      */
     public function reset();
 
     /**
-     * Set resource
+     * Set resource.
      *
      * @param resource $resource
      */
     public function setResource($resource);
 
     /**
-     * Allocate colors
-     *
-     * @param array $colors
+     * Allocate colors.
      *
      * @return array $colors To int colors
      */
     public function allocateColors(array $colors);
 
     /**
-     * Allocate one color
+     * Allocate one color.
      *
      * @param string $color
      *
@@ -123,11 +117,11 @@ interface GdInterface
     public function allocateColor($color);
 
     /**
-     * Transform color to hexadecimal
+     * Transform color to hexadecimal.
      *
-     * @param string  $color
-     * @param boolean $asString
-     * @param string  $separator
+     * @param string $color
+     * @param bool   $asString
+     * @param string $separator
      *
      * @return mixed $color (red, green, blue)
      */

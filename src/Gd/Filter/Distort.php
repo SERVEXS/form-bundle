@@ -18,9 +18,6 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Distort extends Gd implements Filter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $X = random_int(0, $this->width);
@@ -35,7 +32,7 @@ class Distort extends Gd implements Filter
                 $Vy = $y - $Y;
                 $Vn = sqrt($Vx * $Vx + $Vy * $Vy);
 
-                if ($Vn != 0) {
+                if (0 != $Vn) {
                     $Vn2 = $Vn + 4 * sin($Vn / 8);
                     $nX = $X + ($Vx * $Vn2 / $Vn);
                     $nY = $Y + ($Vy * $Vn2 / $Vn);
@@ -54,7 +51,7 @@ class Distort extends Gd implements Filter
                     $this->getColor(ceil($nX), ceil($nY))
                 );
 
-                if ($p === 0) {
+                if (0 === $p) {
                     $p = 0xFFFFFF;
                 }
 

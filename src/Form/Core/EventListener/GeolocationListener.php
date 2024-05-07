@@ -17,15 +17,12 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 /**
- * GeoListener
+ * GeoListener.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class GeolocationListener implements EventSubscriberInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function onBind(FormEvent $event): void
     {
         $data = $event->getData();
@@ -45,9 +42,6 @@ class GeolocationListener implements EventSubscriberInterface
         $event->setData($geo);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [FormEvents::PRE_SET_DATA => 'onBind'];

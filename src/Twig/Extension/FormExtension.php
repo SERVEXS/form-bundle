@@ -11,11 +11,11 @@
 
 namespace Genemu\Bundle\FormBundle\Twig\Extension;
 
+use Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode;
 use Symfony\Component\Form\FormRendererInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode;
 
 /**
  * FormExtension extends Twig with form capabilities.
@@ -35,9 +35,6 @@ class FormExtension extends AbstractExtension
         $this->renderer = $renderer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions(): array
     {
         return [
@@ -50,12 +47,9 @@ class FormExtension extends AbstractExtension
     }
 
     /**
-     * Render Function Form Javascript
+     * Render Function Form Javascript.
      *
-     * @param FormView $view
      * @param bool $prototype
-     *
-     * @return string
      */
     public function renderJavascript(FormView $view, $prototype = false): string
     {
@@ -64,9 +58,6 @@ class FormExtension extends AbstractExtension
         return $this->renderer->searchAndRenderBlock($view, $block);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu.twig.extension.form';

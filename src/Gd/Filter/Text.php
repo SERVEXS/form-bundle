@@ -25,12 +25,10 @@ class Text extends Gd implements Filter
     protected $colors;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $text
      * @param int    $fontSize
-     * @param array  $fonts
-     * @param array  $colors
      */
     public function __construct($text, $fontSize, array $fonts, array $colors)
     {
@@ -45,9 +43,6 @@ class Text extends Gd implements Filter
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $colors = $this->allocateColors($this->colors);
@@ -78,13 +73,13 @@ class Text extends Gd implements Filter
             $fh = $fh + ($h - $fh) / 2 + random_int(-$h / 10, $h / 10);
 
             $texts[] = [
-                'value'  => $this->text[$i],
+                'value' => $this->text[$i],
                 'rotate' => $rotate,
-                'size'   => $size,
-                'font'   => $font,
-                'color'  => $color,
-                'x'      => $fw,
-                'y'      => $fh,
+                'size' => $size,
+                'font' => $font,
+                'color' => $color,
+                'x' => $fw,
+                'y' => $fh,
             ];
 
             $fwm += $fw;

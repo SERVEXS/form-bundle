@@ -19,15 +19,12 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * GeolocationType to JQueryLib
+ * GeolocationType to JQueryLib.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class GeolocationType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('address', 'text');
@@ -49,21 +46,15 @@ class GeolocationType extends AbstractType
             ->addEventSubscriber(new GeolocationListener());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
-            'configs'   => [],
-            'elements'  => [],
+            'configs' => [],
+            'elements' => [],
             'map' => $options['map'],
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -87,17 +78,11 @@ class GeolocationType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'form';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jquerygeolocation';

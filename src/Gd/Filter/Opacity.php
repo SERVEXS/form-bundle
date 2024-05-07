@@ -25,9 +25,6 @@ class Opacity extends Gd implements Filter
         $this->opacity = $opacity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $tmp = $this->resource;

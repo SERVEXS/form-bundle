@@ -61,19 +61,19 @@ class AddressGeolocation implements Serializable
     public function serialize()
     {
         return serialize([
-                'address'   => $this->address,
-                'latitude'  => $this->latitude,
-                'longitude' => $this->longitude,
-                'locality'  => $this->locality,
-                'country'   => $this->country,
-            ]);
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'locality' => $this->locality,
+            'country' => $this->country,
+        ]);
     }
 
     public function unserialize($serialized): void
     {
         $data = unserialize($serialized);
 
-        $this->address  = $data['address']  ?: null;
+        $this->address = $data['address'] ?: null;
         $this->latitude = $data['latitude'] ?: null;
         $this->longitude = $data['longitude'] ?: null;
         $this->locality = $data['locality'] ?: null;

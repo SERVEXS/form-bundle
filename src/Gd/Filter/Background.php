@@ -21,7 +21,7 @@ class Background extends Gd implements Filter
     protected $color;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $color
      */
@@ -30,9 +30,6 @@ class Background extends Gd implements Filter
         $this->color = $color;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         $color = $this->allocateColor($this->color);

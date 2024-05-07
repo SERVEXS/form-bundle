@@ -15,8 +15,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
- * {@inheritdoc}
- *
  * @author Bilal Amarni <bilal.amarni@gmail.com>
  */
 class FileToValueTransformer implements DataTransformerInterface
@@ -34,9 +32,6 @@ class FileToValueTransformer implements DataTransformerInterface
         $this->folder = $folder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform(mixed $datas)
     {
         if (empty($datas)) {
@@ -67,9 +62,6 @@ class FileToValueTransformer implements DataTransformerInterface
         return $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reverseTransform($value)
     {
         // Handled by the FileListener (on bind event)

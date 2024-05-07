@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Select2HiddenType to JQueryLib
+ * Select2HiddenType to JQueryLib.
  *
  * @author Bilal Amarni <bilal.amarni@gmail.com>
  * @author Chris Tickner <chris.tickner@gmail.com>
@@ -36,9 +36,6 @@ class Select2HiddenType extends AbstractType
         $this->configs = $configs;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!empty($options['configs']['multiple'])) {
@@ -48,9 +45,6 @@ class Select2HiddenType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options['configs'];
@@ -64,16 +58,13 @@ class Select2HiddenType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = $this->configs;
         $resolver
             ->setDefaults([
-                'configs'       => $defaults,
-                'transformer'   => null,
+                'configs' => $defaults,
+                'transformer' => null,
             ])
             ->setNormalizer(
                 'configs',
@@ -82,17 +73,11 @@ class Select2HiddenType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return HiddenType::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBlockPrefix(): string
     {
         return 'genemu_jqueryselect2';

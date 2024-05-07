@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 /**
- * CaptchaValidator
+ * CaptchaValidator.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
@@ -28,17 +28,14 @@ readonly class CaptchaValidator implements EventSubscriberInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function validate(FormEvent $event): void
     {
         $form = $event->getForm();
         $data = $event->getData();
 
         if (
-            $this->captcha->getLength() !== strlen($data) ||
-            $this->captcha->getCode() !== $this->captcha->encode($data)
+            $this->captcha->getLength() !== strlen($data)
+            || $this->captcha->getCode() !== $this->captcha->encode($data)
         ) {
             $form->addError(new FormError('The captcha is invalid.'));
         }

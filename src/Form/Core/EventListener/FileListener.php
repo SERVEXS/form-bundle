@@ -29,9 +29,6 @@ class FileListener implements EventSubscriberInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onBind(FormEvent $event): void
     {
         $data = $event->getData();
@@ -59,7 +56,7 @@ class FileListener implements EventSubscriberInterface
     }
 
     /**
-     * Get Handle to Path
+     * Get Handle to Path.
      *
      * @param string $path
      *
@@ -83,7 +80,7 @@ class FileListener implements EventSubscriberInterface
     }
 
     /**
-     * Delete info after `?`
+     * Delete info after `?`.
      *
      * @param string $file
      *
@@ -98,9 +95,6 @@ class FileListener implements EventSubscriberInterface
         return $file;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [FormEvents::PRE_SET_DATA => 'onBind'];

@@ -17,15 +17,12 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * AjaxDocumentType
+ * AjaxDocumentType.
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
 class AjaxDocumentType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -50,17 +47,11 @@ class AjaxDocumentType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return 'document';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'genemu_ajaxdocument';

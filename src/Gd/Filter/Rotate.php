@@ -21,7 +21,7 @@ class Rotate extends Gd implements Filter
     protected $rotate;
 
     /**
-     * Construct
+     * Construct.
      *
      * @param int $rotate
      */
@@ -30,9 +30,6 @@ class Rotate extends Gd implements Filter
         $this->rotate = $rotate;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function apply()
     {
         return $this->resource = imagerotate($this->resource, $this->rotate, 0);
