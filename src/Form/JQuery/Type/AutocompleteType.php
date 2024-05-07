@@ -115,7 +115,7 @@ class AutocompleteType extends AbstractType
                                         'Cannot cast object of type "%s" to string, ' .
                                         'please implement a __toString method or ' .
                                         'set the "property" option to the desired value.',
-                                        get_class($object)
+                                        $object::class
                                     )
                                 );
                             }

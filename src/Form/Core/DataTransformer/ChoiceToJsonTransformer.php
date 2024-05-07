@@ -101,7 +101,7 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
         return $values;
     }
 
-    private function addAjaxChoices(&$choices)
+    private function addAjaxChoices(&$choices): void
     {
         if ($this->ajax && !in_array($this->widget, ['entity', 'document', 'model'])) {
             $this->choiceList->addAjaxChoice($choices);

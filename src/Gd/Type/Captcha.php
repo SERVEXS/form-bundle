@@ -59,7 +59,7 @@ class Captcha extends Gd
         $this->key = 'genemu_form.captcha';
     }
 
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $defaultOptions = [
             'width' => 100,
@@ -86,7 +86,7 @@ class Captcha extends Gd
         $options = array_intersect_key($options, $defaultOptions);
 
         foreach ($options as $key => $values) {
-            $key = preg_replace_callback('/_([a-z])/', function($v) { return strtoupper($v[1]); }, $key);
+            $key = preg_replace_callback('/_([a-z])/', fn($v) => strtoupper($v[1]), $key);
 
             if ('fonts' === $key) {
                 foreach ($values as $value) {
@@ -166,7 +166,7 @@ class Captcha extends Gd
      *
      * @param string
      */
-    public function setCode($code)
+    public function setCode($code): void
     {
         $this->session->set($this->key, $this->encode($code));
     }
@@ -184,7 +184,7 @@ class Captcha extends Gd
     /**
      * Remove code
      */
-    public function removeCode()
+    public function removeCode(): void
     {
         $this->session->remove($this->key);
     }

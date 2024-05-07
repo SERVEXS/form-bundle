@@ -61,9 +61,7 @@ class ChosenType extends AbstractType
                 'allow_single_deselect' => true,
                 'disable_search_threshold' => 0,
             ])
-            ->setNormalizer('expanded', function (Options $options) {
-                return false;
-            });
+            ->setNormalizer('expanded', fn (Options $options) => false);
     }
 
     /**

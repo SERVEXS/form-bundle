@@ -59,9 +59,7 @@ class Select2LocaleType extends AbstractType
             ])
             ->setNormalizer(
                 'configs',
-                function (Options $options, $configs) use ($defaults) {
-                    return array_merge($defaults, $configs);
-                }
+                fn (Options $options, $configs) => array_merge($defaults, $configs)
             )
         ;
     }

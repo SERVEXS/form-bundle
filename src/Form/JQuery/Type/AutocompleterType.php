@@ -86,9 +86,7 @@ class AutocompleterType extends AbstractType
 
         $resolver->setDefaults([
             'route_name' => null,
-            'ajax' => function (Options $options, $previousValue) {
-                return !empty($options['route_name']) || $options['free_values'];
-            },
+            'ajax' => fn (Options $options, $previousValue) => !empty($options['route_name']) || $options['free_values'],
             'choice_list' => function (Options $options, $previousValue) use ($widget) {
                 if (!in_array($widget, ['entity', 'document', 'model'])) {
                     return new AjaxSimpleChoiceList($options['choices'], $options['ajax']);

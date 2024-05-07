@@ -89,9 +89,7 @@ class ReCaptchaType extends AbstractType
             ->setAllowedTypes('validator', 'array')
             ->setNormalizer(
                 'configs',
-                function (Options $options, $value) use ($configs) {
-                    return array_merge($configs, $value);
-                }
+                fn (Options $options, $value) => array_merge($configs, $value)
             )
         ;
     }

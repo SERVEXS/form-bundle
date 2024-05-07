@@ -52,7 +52,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addCaptcha(ArrayNodeDefinition $rootNode)
+    private function addCaptcha(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -71,16 +71,12 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('chars')
                             ->defaultValue(range(0, 9))
                             ->beforeNormalization()
-                                ->ifTrue(function($v) { return !is_array($v); })
-                                ->then(function($v) { return str_split($v); })
+                                ->ifTrue(fn($v) => !is_array($v))
+                                ->then(fn($v) => str_split($v))
                             ->end()
                             ->beforeNormalization()
                                 ->always()
-                                ->then(function($v) {
-                                    return array_filter($v, function($v) {
-                                        return ' ' !== $v && $v;
-                                    });
-                                })
+                                ->then(fn($v) => array_filter($v, fn($v) => ' ' !== $v && $v))
                             ->end()
                             ->prototype('scalar')->end()
                         ->end()
@@ -123,7 +119,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addRecaptcha(ArrayNodeDefinition $rootNode)
+    private function addRecaptcha(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -180,7 +176,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addTinymce(ArrayNodeDefinition $rootNode)
+    private function addTinymce(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -205,7 +201,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addDate(ArrayNodeDefinition $rootNode)
+    private function addDate(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -228,7 +224,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addFile(ArrayNodeDefinition $rootNode)
+    private function addFile(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -253,7 +249,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addImage(ArrayNodeDefinition $rootNode)
+    private function addImage(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -287,7 +283,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addTokeninput(ArrayNodeDefinition $rootNode)
+    private function addTokeninput(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -308,7 +304,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addAutocompleter(ArrayNodeDefinition $rootNode)
+    private function addAutocompleter(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -329,7 +325,7 @@ class Configuration implements ConfigurationInterface
      *
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addAutocomplete(ArrayNodeDefinition $rootNode)
+    private function addAutocomplete(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()
@@ -348,7 +344,7 @@ class Configuration implements ConfigurationInterface
         ;
     }
 
-    private function addSelect2(ArrayNodeDefinition $rootNode)
+    private function addSelect2(ArrayNodeDefinition $rootNode): void
     {
         $rootNode
             ->children()

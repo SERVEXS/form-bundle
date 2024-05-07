@@ -23,11 +23,11 @@ class Distort extends Gd implements Filter
      */
     public function apply()
     {
-        $X = mt_rand(0, $this->width);
-        $Y = mt_rand(0, $this->height);
-        $Phase = mt_rand(0, 10);
-        $Scale = 1.3 + mt_rand(0, 10000) / 30000;
-        $Amp = 1 + mt_rand(0, 1000) / 1000;
+        $X = random_int(0, $this->width);
+        $Y = random_int(0, $this->height);
+        $Phase = random_int(0, 10);
+        $Scale = 1.3 + random_int(0, 10000) / 30000;
+        $Amp = 1 + random_int(0, 1000) / 1000;
 
         for ($x = 0; $x < $this->width; ++$x) {
             for ($y = 0; $y < $this->height; ++$y) {

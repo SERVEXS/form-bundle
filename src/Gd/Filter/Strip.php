@@ -43,13 +43,13 @@ class Strip extends Gd implements Filter
         $nbColor = count($colors) - 1;
 
         for ($i = 0; $i < $this->nb; ++$i) {
-            $x = mt_rand(0, $this->width);
-            $y = mt_rand(0, $this->height);
+            $x = random_int(0, $this->width);
+            $y = random_int(0, $this->height);
 
-            $x2 = $x + mt_rand(-$this->width / 3, $this->width / 3);
-            $y2 = $y + mt_rand(-$this->height / 3, $this->height / 3);
+            $x2 = $x + random_int(-$this->width / 3, $this->width / 3);
+            $y2 = $y + random_int(-$this->height / 3, $this->height / 3);
 
-            $color = $colors[mt_rand(0, $nbColor)];
+            $color = $colors[random_int(0, $nbColor)];
 
             imageline($this->resource, $x, $y, $x2, $y2, $color);
         }

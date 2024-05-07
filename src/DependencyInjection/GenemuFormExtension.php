@@ -35,7 +35,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs
      * @param ContainerBuilder $container
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
         $configs = $this->processConfiguration(new Configuration(), $configs);
@@ -91,7 +91,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function registerCaptchaConfiguration(array $configs, ContainerBuilder $container)
+    private function registerCaptchaConfiguration(array $configs, ContainerBuilder $container): void
     {
         $fontDir = $container->getParameterBag()->resolveValue($configs['font_dir']);
         foreach ($configs['fonts'] as $index => $font) {
@@ -125,7 +125,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function registerRecaptchaConfiguration(array $configs, ContainerBuilder $container)
+    private function registerRecaptchaConfiguration(array $configs, ContainerBuilder $container): void
     {
         $serverUrl = $configs['server_url'];
         if (isset($configs['ssl']['use']) && !empty($configs['ssl']['use'])) {
@@ -155,7 +155,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function registerTinymceConfiguration(array $configs, ContainerBuilder $container)
+    private function registerTinymceConfiguration(array $configs, ContainerBuilder $container): void
     {
         if (isset($configs['script_url']) && !empty($configs['script_url'])) {
             $configs['configs'] = array_merge($configs['configs'], [
@@ -178,7 +178,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function registerDateConfiguration(array $configs, ContainerBuilder $container)
+    private function registerDateConfiguration(array $configs, ContainerBuilder $container): void
     {
         $container->setParameter('genemu.form.date.options', $configs['configs']);
     }
@@ -189,7 +189,7 @@ class GenemuFormExtension extends Extension
      * @param array $configs A configuration array
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function registerFileConfiguration(array $configs, ContainerBuilder $container)
+    private function registerFileConfiguration(array $configs, ContainerBuilder $container): void
     {
         $rootDir = $container->getParameter('genemu.form.file.root_dir');
         $rootDir = $container->getParameterBag()->resolveValue($rootDir);
@@ -217,7 +217,7 @@ class GenemuFormExtension extends Extension
      * @param ContainerBuilder $container A ContainerBuilder instance
      * @param array $configs A configuration array
      */
-    private function registerImageConfiguration(array $configs, ContainerBuilder $container)
+    private function registerImageConfiguration(array $configs, ContainerBuilder $container): void
     {
         if (empty($configs['selected'])) {
             throw new LogicException('Your selected thumbnail does not empty.');
@@ -241,7 +241,7 @@ class GenemuFormExtension extends Extension
         $container->setParameter('genemu.form.image.thumbnails', $configs['thumbnails']);
     }
 
-    private function registerAutocompleteConfiguration(array $configs, ContainerBuilder $container)
+    private function registerAutocompleteConfiguration(array $configs, ContainerBuilder $container): void
     {
         $serviceId = 'genemu.form.jquery.type.autocomplete';
         $textDef = new ChildDefinition($serviceId);
@@ -263,7 +263,7 @@ class GenemuFormExtension extends Extension
         $container->setDefinition($serviceId . '.document', $mongoDef);
     }
 
-    private function registerSelect2Configuration(array $configs, ContainerBuilder $container)
+    private function registerSelect2Configuration(array $configs, ContainerBuilder $container): void
     {
         $serviceId = 'genemu.form.jquery.type.select2';
         foreach (array_merge($this->getChoiceTypeNames(), ['hidden']) as $type) {
@@ -284,7 +284,7 @@ class GenemuFormExtension extends Extension
      * @param string $name Name of the type
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
-    private function loadExtendedTypes($serviceId, $name, ContainerBuilder $container)
+    private function loadExtendedTypes($serviceId, $name, ContainerBuilder $container): void
     {
         foreach ($this->getChoiceTypeNames() as $type) {
             $typeDef = new ChildDefinition($serviceId);

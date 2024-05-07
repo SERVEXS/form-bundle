@@ -75,7 +75,7 @@ class PlainType extends AbstractType
             if (method_exists($value, '__toString')) {
                 $value = $value->__toString();
             } else {
-                $value = get_class($value);
+                $value = $value::class;
             }
         }
 

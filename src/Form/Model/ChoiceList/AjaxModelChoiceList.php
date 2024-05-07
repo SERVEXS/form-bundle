@@ -49,7 +49,7 @@ class AjaxModelChoiceList extends ModelChoiceList
     /**
      * {@inheritdoc}
      */
-    protected function load()
+    protected function load(): void
     {
         if (!$this->ajax) {
             parent::load();

@@ -32,7 +32,7 @@ class Text extends Gd implements Filter
      * @param array  $fonts
      * @param array  $colors
      */
-    public function __construct($text, $fontSize = 12, array $fonts, array $colors)
+    public function __construct($text, $fontSize, array $fonts, array $colors)
     {
         $this->text = $text;
         $this->colors = $colors;

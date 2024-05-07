@@ -45,7 +45,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function checkResource()
+    public function checkResource(): void
     {
         if (!is_resource($this->resource)) {
             throw new Exception('Resource does not exists.');
@@ -107,7 +107,7 @@ class Gd implements GdInterface
      *
      * @param array $thumbnails
      */
-    public function setThumbnails(array $thumbnails)
+    public function setThumbnails(array $thumbnails): void
     {
         foreach ($thumbnails as $name => $thumbnail) {
             $this->setThumbnail($name, $thumbnail);
@@ -120,7 +120,7 @@ class Gd implements GdInterface
      * @param string $name
      * @param File   $thumbnail
      */
-    public function setThumbnail($name, File $thumbnail)
+    public function setThumbnail($name, File $thumbnail): void
     {
         $this->thumbnails[$name] = $thumbnail;
     }
@@ -200,7 +200,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function save($path, $format = 'png', $quality = 100)
+    public function save($path, $format = 'png', $quality = 100): void
     {
         $this->checkResource();
 
@@ -219,7 +219,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function addFilter(Filter $filter)
+    public function addFilter(Filter $filter): void
     {
         $this->filters[] = $filter;
     }
@@ -227,7 +227,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function addFilters(array $filters)
+    public function addFilters(array $filters): void
     {
         foreach ($filters as $filter) {
             $this->addFilter($filter);
@@ -237,7 +237,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function applyFilters()
+    public function applyFilters(): void
     {
         $this->checkResource();
 
@@ -251,7 +251,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function create($width, $height)
+    public function create($width, $height): void
     {
         $this->setResource(imagecreatetruecolor($width, $height));
     }
@@ -259,7 +259,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function reset()
+    public function reset(): void
     {
         $this->create($this->width, $this->height);
     }
@@ -267,7 +267,7 @@ class Gd implements GdInterface
     /**
      * {@inheritdoc}
      */
-    public function setResource($resource)
+    public function setResource($resource): void
     {
         if (!is_resource($resource)) {
             throw new Exception('Resource does not exists.');

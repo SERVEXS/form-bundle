@@ -61,9 +61,7 @@ class TinymceType extends AbstractType
                 'configs' => 'array',
                 'theme' => 'string',
             ]);
-            $resolver->setNormalizer('configs', function (Options $options, $value) use ($configs) {
-                return array_merge($configs, $value);
-            });
+            $resolver->setNormalizer('configs', fn (Options $options, $value) => array_merge($configs, $value));
     }
 
     /**

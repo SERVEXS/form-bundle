@@ -65,7 +65,7 @@ class Image extends File
      * @param int    $width
      * @param int    $height
      */
-    public function createThumbnail($name, $width, $height, $quality = 90)
+    public function createThumbnail($name, $width, $height, $quality = 90): void
     {
         $ext = $this->guessExtension();
 
@@ -81,7 +81,7 @@ class Image extends File
     /**
      * Search thumbnails
      */
-    public function searchThumbnails()
+    public function searchThumbnails(): void
     {
         $thumbnails = [];
 
@@ -159,7 +159,7 @@ class Image extends File
      * @param int $w
      * @param int $h
      */
-    public function addFilterCrop($x, $y, $w, $h)
+    public function addFilterCrop($x, $y, $w, $h): void
     {
         $this->getGd()?->addFilter(new Crop($x, $y, $w, $h));
     }
@@ -169,7 +169,7 @@ class Image extends File
      *
      * @param int $rotate
      */
-    public function addFilterRotate($rotate = 90)
+    public function addFilterRotate($rotate = 90): void
     {
         $this->getGd()?->addFilter(new Rotate($rotate));
     }
@@ -177,7 +177,7 @@ class Image extends File
     /**
      * Add filter negative to image
      */
-    public function addFilterNegative()
+    public function addFilterNegative(): void
     {
         $this->getGd()?->addFilter(new Negate());
     }
@@ -187,7 +187,7 @@ class Image extends File
      *
      * @param string $color
      */
-    public function addFilterSepia($color)
+    public function addFilterSepia($color): void
     {
         $this->getGd()?->addFilters([
             new GrayScale(),
@@ -198,7 +198,7 @@ class Image extends File
     /**
      * Add filter gray scale to image
      */
-    public function addFilterBw()
+    public function addFilterBw(): void
     {
         $this->getGd()?->addFilter(new GrayScale());
     }
@@ -206,7 +206,7 @@ class Image extends File
     /**
      * Add filter blur to image
      */
-    public function addFilterBlur()
+    public function addFilterBlur(): void
     {
         $this->getGd()?->addFilter(new Blur());
     }
@@ -214,7 +214,7 @@ class Image extends File
     /**
      * Add filter opacity to image
      */
-    public function addFilterOpacity($opacity)
+    public function addFilterOpacity($opacity): void
     {
         $this->getGd()?->addFilter(new Opacity($opacity));
     }
@@ -272,7 +272,7 @@ class Image extends File
      *
      * @param int $quality
      */
-    public function save($quality = 90)
+    public function save($quality = 90): void
     {
         $this->getGd()?->save($this->getPathname(), $this->guessExtension(), $quality);
     }
