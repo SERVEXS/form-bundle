@@ -34,7 +34,7 @@ class GenemuFormExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $configs = $this->processConfiguration(new Configuration(), $configs);
         $container->setParameter('genemu.form.select2.configs', $configs['select2']['configs']);
 
