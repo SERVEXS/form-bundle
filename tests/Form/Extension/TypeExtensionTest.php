@@ -9,16 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Tests\Form\Extension;
+namespace Tests\Form\Extension;
 
+use Form;
+use Genemu\Bundle\FormBundle\Form\Core\Validator\ReCaptchaValidator;
+use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use Symfony\Component\HttpFoundation\RequestStack;
-
-use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
-use Genemu\Bundle\FormBundle\Form\Core\Validator\ReCaptchaValidator;
-use Genemu\Bundle\FormBundle\Form;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -32,10 +31,10 @@ class TypeExtensionTest extends CoreExtension
         $this->requestStack = $requestStack;
     }
 
-    protected function loadTypes()
+    protected function loadTypes(): array
     {
         return array_merge(parent::loadTypes(), array(
-            new Form\Core\Type\CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), array(
+            new \Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), array(
                 'script' => 'genemu_upload',
                 'uploader' => '/js/uploadify.swf',
                 'cancelImg' => '/images/cancel.png',
@@ -65,7 +64,7 @@ class TypeExtensionTest extends CoreExtension
                 'border_color' => '000000',
                 'code' => '1234',
             )),
-            new Form\Core\Type\ReCaptchaType(
+            new \Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType(
                 new ReCaptchaValidator(
                     $this->requestStack,
                     'privateKey',

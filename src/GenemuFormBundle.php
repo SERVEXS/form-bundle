@@ -11,22 +11,21 @@
 
 namespace Genemu\Bundle\FormBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 use Genemu\Bundle\FormBundle\DependencyInjection\Compiler\FormPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 /**
  * An extends of Symfony\Component\HttpKernel\Bundle\Bundle
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
-class GenemuFormBundle extends Bundle
+class GenemuFormBundle extends AbstractBundle
 {
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
         $container->addCompilerPass(new FormPass());

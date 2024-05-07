@@ -12,10 +12,10 @@
 namespace Genemu\Bundle\FormBundle\Form\Core\Validator;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -43,13 +43,13 @@ class ReCaptchaValidator implements EventSubscriberInterface
 
             $this->privateKey = $privateKey;
 
-            $this->httpRequest = array(
+            $this->httpRequest = [
                 'POST %s HTTP/1.0',
                 'Host: %s',
                 'Content-Type: application/x-www-form-urlencoded',
                 'Content-Length: %d',
-                'User-Agent: reCAPTCHA/PHP'
-            );
+                'User-Agent: reCAPTCHA/PHP',
+            ];
             $this->httpRequest = implode("\r\n", $this->httpRequest)."\r\n\r\n%s";
         }
     }
@@ -71,12 +71,12 @@ class ReCaptchaValidator implements EventSubscriberInterface
         $error = '';
         $request = $this->request->request;
 
-        $datas = array(
+        $datas = [
             'privatekey' => $this->privateKey,
             'challenge' => $request->get('recaptcha_challenge_field'),
             'response' => $request->get('recaptcha_response_field'),
-            'remoteip' => $this->request->getClientIp()
-        );
+            'remoteip' => $this->request->getClientIp(),
+        ];
 
         if (empty($this->options['code'])) {
             if (empty($datas['challenge']) || empty($datas['response'])) {
@@ -132,6 +132,6 @@ class ReCaptchaValidator implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return array(FormEvents::POST_SUBMIT => 'validate');
+        return [FormEvents::POST_SUBMIT => 'validate'];
     }
 }

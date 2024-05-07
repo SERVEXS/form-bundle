@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Gd\File;
+namespace Gd\File;
 
+use Exception;
+use Gd\Filter\Blur;
+use Gd\Filter\Colorize;
+use Gd\Filter\Crop;
+use Gd\Filter\GrayScale;
+use Gd\Filter\Negate;
+use Gd\Filter\Opacity;
+use Gd\Filter\Rotate;
+use Gd\Gd;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
-
-use Genemu\Bundle\FormBundle\Gd\Gd;
-use Genemu\Bundle\FormBundle\Gd\Filter\Crop;
-use Genemu\Bundle\FormBundle\Gd\Filter\Rotate;
-use Genemu\Bundle\FormBundle\Gd\Filter\Negate;
-use Genemu\Bundle\FormBundle\Gd\Filter\Colorize;
-use Genemu\Bundle\FormBundle\Gd\Filter\GrayScale;
-use Genemu\Bundle\FormBundle\Gd\Filter\Blur;
-use Genemu\Bundle\FormBundle\Gd\Filter\Opacity;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -37,8 +37,8 @@ class Image extends File
     {
         parent::__construct($path, $checkPath);
 
-        if (false === strpos($this->getMimeType(), 'image')) {
-            throw new \Exception(sprintf('Is not an image file. (%s)', $this->getMimeType()));
+        if (!str_contains($this->getMimeType(), 'image')) {
+            throw new Exception(sprintf('Is not an image file. (%s)', $this->getMimeType()));
         }
     }
 
@@ -83,7 +83,7 @@ class Image extends File
      */
     public function searchThumbnails()
     {
-        $thumbnails = array();
+        $thumbnails = [];
 
         $fileExt = $this->guessExtension();
         $fileName = $this->getBasename('.' . $fileExt);
@@ -112,7 +112,7 @@ class Image extends File
      *
      * @return Image|null
      */
-    public function getThumbnail($name)
+    public function getThumbnail($name): ?Image
     {
         if (!$this->hasThumbnail($name)) {
             $this->searchThumbnails();
@@ -161,7 +161,7 @@ class Image extends File
      */
     public function addFilterCrop($x, $y, $w, $h)
     {
-        $this->getGd()->addFilter(new Crop($x, $y, $w, $h));
+        $this->getGd()?->addFilter(new Crop($x, $y, $w, $h));
     }
 
     /**
@@ -171,7 +171,7 @@ class Image extends File
      */
     public function addFilterRotate($rotate = 90)
     {
-        $this->getGd()->addFilter(new Rotate($rotate));
+        $this->getGd()?->addFilter(new Rotate($rotate));
     }
 
     /**
@@ -179,7 +179,7 @@ class Image extends File
      */
     public function addFilterNegative()
     {
-        $this->getGd()->addFilter(new Negate());
+        $this->getGd()?->addFilter(new Negate());
     }
 
     /**
@@ -189,10 +189,10 @@ class Image extends File
      */
     public function addFilterSepia($color)
     {
-        $this->getGd()->addFilters(array(
+        $this->getGd()?->addFilters([
             new GrayScale(),
-            new Colorize($color)
-        ));
+            new Colorize($color),
+        ]);
     }
 
     /**
@@ -200,7 +200,7 @@ class Image extends File
      */
     public function addFilterBw()
     {
-        $this->getGd()->addFilter(new GrayScale());
+        $this->getGd()?->addFilter(new GrayScale());
     }
 
     /**
@@ -208,7 +208,7 @@ class Image extends File
      */
     public function addFilterBlur()
     {
-        $this->getGd()->addFilter(new Blur());
+        $this->getGd()?->addFilter(new Blur());
     }
 
     /**
@@ -216,13 +216,13 @@ class Image extends File
      */
     public function addFilterOpacity($opacity)
     {
-        $this->getGd()->addFilter(new Opacity($opacity));
+        $this->getGd()?->addFilter(new Opacity($opacity));
     }
 
     /**
      * Get gd manipulator
      *
-     * @return \Genemu\Bundle\FormBundle\Gd\Gd
+     * @return Gd
      */
     public function getGd()
     {
@@ -244,7 +244,7 @@ class Image extends File
      */
     public function getWidth()
     {
-        return $this->getGd()->getWidth();
+        return $this->getGd()?->getWidth();
     }
 
     /**
@@ -254,7 +254,7 @@ class Image extends File
      */
     public function getHeight()
     {
-        return $this->getGd()->getHeight();
+        return $this->getGd()?->getHeight();
     }
 
     /**
@@ -264,7 +264,7 @@ class Image extends File
      */
     public function getBase64()
     {
-        return $this->getGd()->getBase64($this->guessExtension());
+        return $this->getGd()?->getBase64($this->guessExtension());
     }
 
     /**
@@ -274,6 +274,6 @@ class Image extends File
      */
     public function save($quality = 90)
     {
-        $this->getGd()->save($this->getPathname(), $this->guessExtension(), $quality);
+        $this->getGd()?->save($this->getPathname(), $this->guessExtension(), $quality);
     }
 }

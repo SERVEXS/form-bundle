@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer;
+namespace Form\JQuery\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -45,7 +45,7 @@ class FileToValueTransformer implements DataTransformerInterface
 
         if ($this->multiple) {
             $datas = is_scalar($datas) ? explode(',', $datas) : $datas;
-            $value = array();
+            $value = [];
 
             foreach ($datas as $data) {
                 if (!$data instanceof File) {

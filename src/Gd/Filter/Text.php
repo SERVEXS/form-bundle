@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Gd\Filter;
+namespace Gd\Filter;
 
-use Genemu\Bundle\FormBundle\Gd\Gd;
+use Gd\Gd;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -62,7 +62,7 @@ class Text extends Gd implements Filter
         $h = $this->height;
 
         $fwm = 0;
-        $texts = array();
+        $texts = [];
         for ($i = 0; $i < $len; ++$i) {
             $rotate = mt_rand(-25, 25);
             $size = $fs + $fs * (mt_rand(0, 3) / 10);
@@ -77,15 +77,15 @@ class Text extends Gd implements Filter
             $fh = max($box[1] - $box[7], $box[3] - $box[5]);
             $fh = $fh + ($h - $fh) / 2 + mt_rand(-$h / 10, $h / 10);
 
-            $texts[] = array(
+            $texts[] = [
                 'value'  => $this->text[$i],
                 'rotate' => $rotate,
                 'size'   => $size,
                 'font'   => $font,
                 'color'  => $color,
                 'x'      => $fw,
-                'y'      => $fh
-            );
+                'y'      => $fh,
+            ];
 
             $fwm += $fw;
         }

@@ -11,16 +11,14 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
+use Form\JQuery\DataTransformer\FileToValueTransformer;
+use Genemu\Bundle\FormBundle\Form\Core\EventListener\FileListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Genemu\Bundle\FormBundle\Form\Core\EventListener\FileListener;
-use Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer\FileToValueTransformer;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * FileType
@@ -30,78 +28,63 @@ use Genemu\Bundle\FormBundle\Form\JQuery\DataTransformer\FileToValueTransformer;
  */
 class FileType extends AbstractType
 {
-    private $options;
-    private $rootDir;
-
-    /**
-     * Constructs
-     *
-     * @param array  $options
-     * @param string $rootDir
-     */
-    public function __construct(array $options, $rootDir)
+    public function __construct(private array $options, private string $rootDir)
     {
-        $this->options = $options;
-        $this->rootDir = $rootDir;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $configs = $options['configs'];
 
         $builder
             ->addEventSubscriber(new FileListener($this->rootDir, $options['multiple']))
             ->addViewTransformer(new FileToValueTransformer($this->rootDir, $configs['folder'], $options['multiple']))
-            ->setAttribute('rootDir', $this->rootDir)
-        ;
+            ->setAttribute('rootDir', $this->rootDir);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars = array_replace($view->vars, array(
+        $view->vars = array_replace($view->vars, [
             'type' => 'hidden',
             'value' => $form->getViewData(),
             'multiple' => $options['multiple'],
             'configs' => $options['configs'],
-        ));
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $configs = $this->options;
 
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'data_class' => null,
                 'required' => false,
                 'multiple' => false,
-                'configs' => array(),
-            ))
-            ->setNormalizers(array(
-                'configs' => function (Options $options, $value) use ($configs) {
-                    if (!$options['multiple']) {
-                        $value['multi'] = false;
-                    }
-
-                    return array_merge($configs, $value);
+                'configs' => [],
+            ])
+            ->setNormalizer('configs', function (Options $options, $value) use ($configs) {
+                if (!$options['multiple']) {
+                    $value['multi'] = false;
                 }
-            ))
-        ;
+
+                return array_merge($configs, $value);
+            });
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'file';
     }
@@ -109,7 +92,7 @@ class FileType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'genemu_jqueryfile';
     }

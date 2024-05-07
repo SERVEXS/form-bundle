@@ -11,12 +11,11 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\EventListener;
 
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
+use Gd\File\Image;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\File;
-
-use Genemu\Bundle\FormBundle\Gd\File\Image;
 
 /**
  * Adds a protocol to a URL if it doesn't already have one.
@@ -26,25 +25,14 @@ use Genemu\Bundle\FormBundle\Gd\File\Image;
  */
 class FileListener implements EventSubscriberInterface
 {
-    protected $rootDir;
-    protected $multiple;
-
-    /**
-     * Constructs
-     *
-     * @param string  $rootDir
-     * @param boolean $multiple
-     */
-    public function __construct($rootDir, $multiple = false)
+    public function __construct(protected string $rootDir, protected bool $multiple = false)
     {
-        $this->rootDir = $rootDir;
-        $this->multiple = $multiple;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function onBind(FormEvent $event)
+    public function onBind(FormEvent $event): void
     {
         $data = $event->getData();
 
@@ -54,7 +42,7 @@ class FileListener implements EventSubscriberInterface
 
         if ($this->multiple) {
             $paths = explode(',', $data);
-            $return = array();
+            $return = [];
 
             foreach ($paths as $path) {
                 if ($handle = $this->getHandleToPath($path)) {
@@ -84,7 +72,7 @@ class FileListener implements EventSubscriberInterface
         if (is_file($path)) {
             $handle = new File($path);
 
-            if (preg_match('/image/', $handle->getMimeType())) {
+            if (str_contains($handle->getMimeType(), 'image')) {
                 $handle = new Image($handle->getPathname());
             }
 
@@ -113,8 +101,8 @@ class FileListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return array(FormEvents::BIND => 'onBind');
+        return [FormEvents::PRE_SET_DATA => 'onBind'];
     }
 }

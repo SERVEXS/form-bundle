@@ -11,15 +11,14 @@
 
 namespace Genemu\Bundle\FormBundle\Controller;
 
-use Genemu\Bundle\FormBundle\Gd\File\Image;
+use Gd\File\Image;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class UploadController
+readonly class UploadController
 {
-
-    public function __construct(private readonly ParameterBagInterface $parameterBag)
+    public function __construct(private ParameterBagInterface $parameterBag)
     {
     }
 
@@ -31,16 +30,16 @@ class UploadController
         $uploadDir = $this->$this->parameterBag->get('genemu.form.file.upload_dir');
         $name = uniqid() . 'Controller' . $handle->guessExtension();
 
-        $json = array();
+        $json = [];
         if ($handle = $handle->move($uploadDir, $name)) {
-            $json = array(
+            $json = [
                 'result' => '1',
-                'thumbnail' => array(),
-                'image' => array(),
-                'file' => ''
-            );
+                'thumbnail' => [],
+                'image' => [],
+                'file' => '',
+            ];
 
-            if (preg_match('/image/', $handle->getMimeType())) {
+            if (str_contains($handle->getMimeType(), 'image')) {
                 $handle = new Image($handle->getPathname());
                 $thumbnail = $handle;
 
@@ -61,17 +60,17 @@ class UploadController
                     }
                 }
 
-                $json = array_replace($json, array(
-                    'thumbnail' => array(
+                $json = array_replace($json, [
+                    'thumbnail' => [
                         'file' => $folder . '/' . $thumbnail->getFilename() . '?' . time(),
                         'width' => $thumbnail->getWidth(),
-                        'height' => $thumbnail->getHeight()
-                    ),
-                    'image' => array(
+                        'height' => $thumbnail->getHeight(),
+                    ],
+                    'image' => [
                         'width' => $handle->getWidth(),
-                        'height' => $handle->getHeight()
-                    )
-                ));
+                        'height' => $handle->getHeight(),
+                    ],
+                ]);
             }
 
             $json['file'] = $folder . '/' . $handle->getFilename() . '?' . time();

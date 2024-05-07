@@ -11,15 +11,14 @@
 
 namespace Genemu\Bundle\FormBundle\Gd\Type;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use Gd\Filter\Background;
+use Gd\Filter\Border;
+use Gd\Filter\GrayScale;
+use Gd\Filter\Strip;
+use Gd\Filter\Text;
+use Gd\Gd;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-
-use Genemu\Bundle\FormBundle\Gd\Gd;
-use Genemu\Bundle\FormBundle\Gd\Filter\Text;
-use Genemu\Bundle\FormBundle\Gd\Filter\Strip;
-use Genemu\Bundle\FormBundle\Gd\Filter\Background;
-use Genemu\Bundle\FormBundle\Gd\Filter\Border;
-use Genemu\Bundle\FormBundle\Gd\Filter\GrayScale;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -62,7 +61,7 @@ class Captcha extends Gd
 
     public function setOptions(array $options)
     {
-        $defaultOptions = array(
+        $defaultOptions = [
             'width' => 100,
             'height' => 30,
             'format' => 'png',
@@ -70,18 +69,18 @@ class Captcha extends Gd
             'border_color' => '000000',
             'chars' => range(0, 9),
             'length' => 4,
-            'fonts' => array(
+            'fonts' => [
                 realpath(__DIR__ . '/../../Resources/public/fonts/akbar.ttf'),
                 realpath(__DIR__ . '/../../Resources/public/fonts/brushcut.ttf'),
                 realpath(__DIR__ . '/../../Resources/public/fonts/molten.ttf'),
                 realpath(__DIR__ . '/../../Resources/public/fonts/planetbe.ttf'),
                 realpath(__DIR__ . '/../../Resources/public/fonts/whoobub.ttf'),
-            ),
+            ],
             'font_size' => 16,
-            'font_color' => array('252525', '8B8787', '550707', '3526E6', '88531E'),
+            'font_color' => ['252525', '8B8787', '550707', '3526E6', '88531E'],
             'grayscale' => false,
             'code' => null,
-        );
+        ];
 
         $options = array_replace($defaultOptions, $options);
         $options = array_intersect_key($options, $defaultOptions);
@@ -112,12 +111,12 @@ class Captcha extends Gd
 
         $code = $this->newCode($this->chars, $this->length);
 
-        $this->addFilters(array(
+        $this->addFilters([
             new Background($this->backgroundColor),
             new Border($this->borderColor),
             new Strip($this->fontColor),
             new Text($code, $this->fontSize, $this->fonts, $this->fontColor),
-        ));
+        ]);
         if ($this->grayscale) {
             $this->addFilter(new GrayScale());
         }

@@ -12,14 +12,15 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Doctrine\Persistence\ManagerRegistry;
+use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
  * @author Bilal Amarni <bilal.amarni@gmail.com>
@@ -27,6 +28,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 class AutocompleteType extends AbstractType
 {
     private $type;
+
     private ManagerRegistry $registry;
 
 
@@ -41,11 +43,11 @@ class AutocompleteType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars = array_replace($view->vars, array(
+        $view->vars = array_replace($view->vars, [
             'configs' => $options['configs'],
             'suggestions' => $options['suggestions'],
             'route_name' => $options['route_name'],
-        ));
+        ]);
 
         // Adds a custom block prefix
         array_splice(
@@ -59,71 +61,72 @@ class AutocompleteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $type = $this->type;
         $registry = $this->registry;
 
-        $resolver->setDefaults(array(
-            'configs' => array(),
-            'suggestions' => array(),
+        $resolver->setDefaults([
+            'configs' => [],
+            'suggestions' => [],
             'route_name' => null,
             'class' => null,
             'property' => null,
             'em' => null,
             'document_manager' => null,
-        ));
+        ]);
 
-        $resolver->setNormalizers(array(
-            'em' => function (Options $options, $manager) use ($registry, $type) {
-                if (!in_array($type, array('entity', 'document'))) {
-                    return null;
-                }
-                if (null !== $options['document_manager'] && $manager) {
-                    throw new \InvalidArgumentException('You cannot set both an "em" and "document_manager" option.');
-                }
+        $resolver->setNormalizer('em', function (Options $options, $manager) use ($registry, $type) {
+            if (!in_array($type, ['entity', 'document'])) {
+                return null;
+            }
+            if (null !== $options['document_manager'] && $manager) {
+                throw new InvalidArgumentException('You cannot set both an "em" and "document_manager" option.');
+            }
 
-                $manager = $options['document_manager'] ?: $manager;
+            $manager = $options['document_manager'] ?: $manager;
 
-                if (null === $manager) {
-                    return $registry->getManagerForClass($options['class']);
-                }
+            if (null === $manager) {
+                return $registry->getManagerForClass($options['class']);
+            }
 
-                return $registry->getManager($manager);
-            },
-            'suggestions' => function (Options $options, $suggestions) use ($type, $registry) {
-                if (null !== $options['route_name']) {
-                    return array();
-                }
-                if (empty($suggestions)) {
-                    switch ($type) {
-                        case 'entity':
-                        case 'document':
-                            $propertyPath = $options['property'] ? new PropertyPath($options['property']) : null;
-                            $suggestions = array();
-                            $objects = $options['em']->getRepository($options['class'])->findAll();
-                            foreach ($objects as $object) {
-                                if ($propertyPath) {
-                                    $suggestions[] = PropertyAccess::createPropertyAccessor()->getValue($object, $propertyPath);
-                                } elseif (method_exists($object, '__toString')) {
-                                    $suggestions[] = (string) $object;
-                                } else {
-                                    throw new \RuntimeException(sprintf(
+            return $registry->getManager($manager);
+        });
+
+        $resolver->setNormalizer('suggestions', function (Options $options, $suggestions) use ($type, $registry) {
+            if (null !== $options['route_name']) {
+                return [];
+            }
+            if (empty($suggestions)) {
+                switch ($type) {
+                    case 'entity':
+                    case 'document':
+                        $propertyPath = $options['property'] ? new PropertyPath($options['property']) : null;
+                        $suggestions = [];
+                        $objects = $options['em']->getRepository($options['class'])->findAll();
+                        foreach ($objects as $object) {
+                            if ($propertyPath) {
+                                $suggestions[] = PropertyAccess::createPropertyAccessor()->getValue($object, $propertyPath);
+                            } elseif (method_exists($object, '__toString')) {
+                                $suggestions[] = (string)$object;
+                            } else {
+                                throw new RuntimeException(
+                                    sprintf(
                                         'Cannot cast object of type "%s" to string, ' .
                                         'please implement a __toString method or ' .
                                         'set the "property" option to the desired value.',
                                         get_class($object)
-                                    ));
-                                }
+                                    )
+                                );
                             }
+                        }
 
-                            break;
-                    }
+                        break;
                 }
+            }
 
-                return $suggestions;
-            },
-        ));
+            return $suggestions;
+        });
     }
 
     /**

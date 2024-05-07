@@ -12,8 +12,8 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -53,20 +53,17 @@ class ChosenType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'no_results_text' => '',
                 'allow_single_deselect' => true,
-                'disable_search_threshold' => 0
-            ))
-            ->setNormalizers(array(
-                'expanded' => function (Options $options) {
-                    return false;
-                }
-            ))
-        ;
+                'disable_search_threshold' => 0,
+            ])
+            ->setNormalizer('expanded', function (Options $options) {
+                return false;
+            });
     }
 
     /**

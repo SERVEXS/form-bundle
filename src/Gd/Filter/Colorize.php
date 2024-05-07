@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Gd\Filter;
+namespace Gd\Filter;
 
-use Genemu\Bundle\FormBundle\Gd\Gd;
+use Gd\Gd;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -35,7 +35,7 @@ class Colorize extends Gd implements Filter
      */
     public function apply()
     {
-        list($red, $green, $blue) = $this->hexColor($this->color);
+        [$red, $green, $blue] = $this->hexColor($this->color);
 
         imagefilter($this->resource, IMG_FILTER_COLORIZE, $red, $green, $blue);
 

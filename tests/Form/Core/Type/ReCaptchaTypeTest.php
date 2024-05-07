@@ -9,12 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Tests\Form\Core\Type;
+namespace Tests\Form\Core\Type;
 
-use Genemu\Bundle\FormBundle\Tests\Form\Type\TypeTestCase;
-use Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType;
-use Genemu\Bundle\FormBundle\Form\Core\Validator\ReCaptchaValidator;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\Form\Type\TypeTestCase;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -60,7 +58,7 @@ class ReCaptchaTypeTest extends TypeTestCase
             'code' => '1234',
         ), $form->getConfig()->getAttribute('option_validator'));
     }
-    
+
     /**
      * @dataProvider provideCodes
      */

@@ -11,11 +11,10 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Model\Type;
 
+use Form\Model\ChoiceList\AjaxModelChoiceList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Genemu\Bundle\FormBundle\Form\Model\ChoiceList\AjaxModelChoiceList;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * AjaxModelType
@@ -27,17 +26,17 @@ class AjaxModelType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'template'          => 'choice',
             'multiple'          => false,
             'expanded'          => false,
             'class'             => null,
             'property'          => null,
             'query'             => null,
-            'choices'           => array(),
-            'preferred_choices' => array(),
+            'choices'           => [],
+            'preferred_choices' => [],
             'ajax'              => false,
             'choice_list'       => function (Options $options, $previousValue) {
                 if (null === $previousValue) {
@@ -53,16 +52,14 @@ class AjaxModelType extends AbstractType
                 }
 
                 return null;
-            }
-        ));
-
-        return $options;
+            },
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'model';
     }
@@ -70,7 +67,7 @@ class AjaxModelType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'genemu_ajaxmodel';
     }

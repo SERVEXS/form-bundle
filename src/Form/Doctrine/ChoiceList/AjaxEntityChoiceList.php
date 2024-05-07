@@ -11,37 +11,47 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList;
 
-use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
-use Symfony\Component\PropertyAccess\PropertyPath;
+use Closure;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\ORMQueryBuilderLoader;
+use Symfony\Component\Form\ChoiceList\LazyChoiceList;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-
-use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
  * AjaxEntityChoiceList
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
-class AjaxEntityChoiceList extends EntityChoiceList
+class AjaxEntityChoiceList extends LazyChoiceList
 {
     private $ajax;
+
     private $propertyPath;
+
     private $classMetadata;
 
     /**
      * Constructs
      *
-     * @param EntityManager  $em
-     * @param string         $class
-     * @param string         $property
-     * @param QueryBuilder   $qb
-     * @param array|\Closure $choices
-     * @param string         $groupBy
-     * @param boolean        $ajax
+     * @param ObjectManager $em
+     * @param string $class
+     * @param string $property
+     * @param QueryBuilder $qb
+     * @param array|Closure $choices
+     * @param string $groupBy
+     * @param boolean $ajax
      */
-    public function __construct(ObjectManager $em, $class, $property = null, $qb = null, $choices = null, $groupBy = null, $ajax = false)
-    {
+    public function __construct(
+        ObjectManager $em,
+        $class,
+        $property = null,
+        $qb = null,
+        $choices = null,
+        $groupBy = null,
+        $ajax = false
+    ) {
         $this->ajax = $ajax;
         $this->classMetadata = $em->getClassMetadata($class);
 
@@ -49,9 +59,9 @@ class AjaxEntityChoiceList extends EntityChoiceList
             $this->propertyPath = new PropertyPath($property);
         }
 
-        $loader = $qb ? new ORMQueryBuilderLoader($qb, $em, $class) : null;
+        $loader = $qb ? new ORMQueryBuilderLoader($qb) : null;
 
-        parent::__construct($em, $class, $property, $loader, $choices, array(), $groupBy);
+        parent::__construct($em, $class, $property, $loader, $choices, [], $groupBy);
     }
 
     /**
@@ -67,20 +77,20 @@ class AjaxEntityChoiceList extends EntityChoiceList
     /**
      * {@inheritdoc}
      */
-    public function getChoices()
+    public function getChoices(): array
     {
         $choices = $this->getRemainingViews();
 
         if (empty($choices)) {
-            $choices = array();
+            $choices = [];
         }
 
-        $array = array();
+        $array = [];
         foreach ($choices as $choice) {
-            $array[] = array(
+            $array[] = [
                 'value' => $choice->value,
-                'label' => $choice->label
-            );
+                'label' => $choice->label,
+            ];
         }
 
         return $array;
@@ -92,7 +102,7 @@ class AjaxEntityChoiceList extends EntityChoiceList
     public function getRemainingViews()
     {
         if ($this->ajax) {
-            return array();
+            return [];
         }
 
         return parent::getRemainingViews();
@@ -104,7 +114,7 @@ class AjaxEntityChoiceList extends EntityChoiceList
     public function getPreferredViews()
     {
         if ($this->ajax) {
-            return array();
+            return [];
         }
 
         return parent::getPreferredViews();
@@ -119,7 +129,7 @@ class AjaxEntityChoiceList extends EntityChoiceList
      */
     public function getIntersect(array $ids)
     {
-        $intersect = array();
+        $intersect = [];
 
         if ($this->ajax) {
             foreach ($this->getChoicesForValues($ids) as $entity) {
@@ -128,13 +138,13 @@ class AjaxEntityChoiceList extends EntityChoiceList
                 if ($this->propertyPath) {
                     $label = PropertyAccess::createPropertyAccessor()->getValue($entity, $this->propertyPath);
                 } else {
-                    $label = (string) $entity;
+                    $label = (string)$entity;
                 }
 
-                $intersect[] = array(
+                $intersect[] = [
                     'value' => $id,
-                    'label' => $label
-                );
+                    'label' => $label,
+                ];
             }
         } else {
             foreach ($this->getChoices() as $choice) {

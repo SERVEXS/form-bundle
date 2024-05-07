@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormRendererInterface;
 use Symfony\Component\Form\FormView;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode;
 
 /**
  * FormExtension extends Twig with form capabilities.
@@ -39,13 +40,13 @@ class FormExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        return array(
-            new TwigFunction('form_javascript', array($this, 'renderJavascript'), array('is_safe' => array('html'))),
-            new TwigFunction('form_stylesheet', null, array(
-                'is_safe' => array('html'),
-                'node_class' => 'Symfony\Bridge\Twig\Node\SearchAndRenderBlockNode',
-            )),
-        );
+        return [
+            new TwigFunction('form_javascript', [$this, 'renderJavascript'], ['is_safe' => ['html']]),
+            new TwigFunction('form_stylesheet', null, [
+                'is_safe' => ['html'],
+                'node_class' => SearchAndRenderBlockNode::class,
+            ]),
+        ];
     }
 
     /**
@@ -56,7 +57,7 @@ class FormExtension extends AbstractExtension
      *
      * @return string
      */
-    public function renderJavascript(FormView $view, $prototype = false)
+    public function renderJavascript(FormView $view, $prototype = false): string
     {
         $block = $prototype ? 'javascript_prototype' : 'javascript';
 
@@ -66,7 +67,7 @@ class FormExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'genemu.twig.extension.form';
     }

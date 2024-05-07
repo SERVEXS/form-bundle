@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Gd;
+namespace Gd;
 
+use Exception;
+use Gd\Filter\Filter;
 use Symfony\Component\HttpFoundation\File\File;
-
-use Genemu\Bundle\FormBundle\Gd\Filter\Filter;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -22,8 +22,8 @@ class Gd implements GdInterface
 {
     protected $resource;
 
-    protected $filters = array();
-    protected $thumbnails = array();
+    protected $filters = [];
+    protected $thumbnails = [];
 
     protected $width;
     protected $height;
@@ -48,7 +48,7 @@ class Gd implements GdInterface
     public function checkResource()
     {
         if (!is_resource($this->resource)) {
-            throw new \Exception('Resource does not exists.');
+            throw new Exception('Resource does not exists.');
         }
     }
 
@@ -65,7 +65,8 @@ class Gd implements GdInterface
     public function createThumbnail($name, $path, $width, $height, $format = 'png', $quality = 90)
     {
         $ratio = ($this->width > $width || $this->height > $height)
-            ?($width > $height
+            ?(
+                $width > $height
                 ?$width / $height
                 :$height / $width
             ):1;
@@ -269,7 +270,7 @@ class Gd implements GdInterface
     public function setResource($resource)
     {
         if (!is_resource($resource)) {
-            throw new \Exception('Resource does not exists.');
+            throw new Exception('Resource does not exists.');
         }
 
         $this->resource = $resource;
@@ -302,7 +303,7 @@ class Gd implements GdInterface
      */
     public function allocateColors(array $colors)
     {
-        $array = array();
+        $array = [];
         foreach ($colors as $color) {
             $array[] = $this->allocateColor($color);
         }
@@ -317,7 +318,7 @@ class Gd implements GdInterface
     {
         $this->checkResource();
 
-        list($red, $green, $blue) = $this->hexColor($color);
+        [$red, $green, $blue] = $this->hexColor($color);
 
         if ($alpha) {
             return imagecolorallocatealpha($this->resource, $red, $green, $blue, 255 * $alpha);
@@ -339,15 +340,15 @@ class Gd implements GdInterface
         }
 
         if (6 !== strlen($color)) {
-            throw new \Exception(sprintf('Color #%s is not exactly.', $color));
+            throw new Exception(sprintf('Color #%s is not exactly.', $color));
         }
 
         $color = hexdec($color);
-        $array = array(
+        $array = [
             0xFF & ($color >> 0x10),
             0xFF & ($color >> 0x8),
-            0xFF & $color
-        );
+            0xFF & $color,
+        ];
 
         return $asString ? implode($separator, $array) : $array;
     }
@@ -361,10 +362,10 @@ class Gd implements GdInterface
 
     public function bilinearInterpolate($x, $y, $nw, $ne, $sw, $se)
     {
-        list($r0, $g0, $b0) = $this->intColor($nw);
-        list($r1, $g1, $b1) = $this->intColor($ne);
-        list($r2, $g2, $b2) = $this->intColor($sw);
-        list($r3, $g3, $b3) = $this->intColor($se);
+        [$r0, $g0, $b0] = $this->intColor($nw);
+        [$r1, $g1, $b1] = $this->intColor($ne);
+        [$r2, $g2, $b2] = $this->intColor($sw);
+        [$r3, $g3, $b3] = $this->intColor($se);
 
         $cx = 1.0 - $x;
         $cy = 1.0 - $y;

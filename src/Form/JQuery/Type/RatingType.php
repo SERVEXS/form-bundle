@@ -13,10 +13,10 @@ namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * RatingType
@@ -29,7 +29,7 @@ class RatingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setAttribute('configs', $options['configs']);
     }
@@ -37,7 +37,7 @@ class RatingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $form->getConfig()->getAttribute('configs');
         if (!isset($view->vars['configs']['required'])) {
@@ -48,32 +48,31 @@ class RatingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'number' => 5,
-            'configs' => array(),
+            'configs' => [],
             'expanded' => true,
             'choices' => function (Options $options) {
-                $choices = array();
-                for ($i=1; $i<=$options['number']; $i++) {
+                $choices = [];
+                for ($i = 1; $i <= $options['number']; $i++) {
                     $choices[$i] = null;
                 }
-                return $choices;
-            }
-        ));
 
-        $resolver->setNormalizers(array(
-            'expanded' => function (Options $options, $value) {
-                return true;
-            }
-        ));
+                return $choices;
+            },
+        ]);
+
+        $resolver->setNormalizer('expanded', function (Options $options, $value) {
+            return true;
+        });
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'choice';
     }
@@ -81,7 +80,7 @@ class RatingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'genemu_jqueryrating';
     }

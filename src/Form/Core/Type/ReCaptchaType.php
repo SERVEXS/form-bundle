@@ -11,11 +11,13 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\Type;
 
+use Locale;
+use RuntimeException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,7 +36,7 @@ class ReCaptchaType extends AbstractType
     public function __construct(EventSubscriberInterface $validator, $publicKey, $serverUrl, array $options)
     {
         if (empty($publicKey)) {
-            throw new \RuntimeException('The child node "public_key" at path "genenu_form.captcha" must be configured.');
+            throw new RuntimeException('The child node "public_key" at path "genenu_form.captcha" must be configured.');
         }
 
         $this->validator = $validator;
@@ -61,11 +63,11 @@ class ReCaptchaType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars = array_replace($view->vars, array(
+        $view->vars = array_replace($view->vars, [
             'public_key' => $this->publicKey,
             'server' => $this->serverUrl,
             'configs' => $options['configs'],
-        ));
+        ]);
     }
 
     /**
@@ -73,19 +75,21 @@ class ReCaptchaType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $configs = array_merge(array(
-            'lang' => \Locale::getDefault(),
-            ), $this->options);
+        $configs = array_merge([
+            'lang' => Locale::getDefault(),
+            ], $this->options);
 
         $resolver
-            ->setDefaults(array(
-                'configs' => array(),
-                'validator' => array(),
+            ->setDefaults([
+                'configs' => [],
+                'validator' => [],
                 'error_bubbling' => false,
-            ))
+            ])
             ->setAllowedTypes('configs', 'array')
             ->setAllowedTypes('validator', 'array')
-            ->setNormalizer('configs', function (Options $options, $value) use ($configs) {
+            ->setNormalizer(
+                'configs',
+                function (Options $options, $value) use ($configs) {
                     return array_merge($configs, $value);
                 }
             )

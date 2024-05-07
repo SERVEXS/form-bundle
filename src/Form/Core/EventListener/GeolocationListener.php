@@ -11,11 +11,10 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\EventListener;
 
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 use Genemu\Bundle\FormBundle\Geolocation\AddressGeolocation;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 /**
  * GeoListener
@@ -51,6 +50,6 @@ class GeolocationListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents(): array
     {
-        return array(FormEvents::PRE_SET_DATA => 'onBind');
+        return [FormEvents::PRE_SET_DATA => 'onBind'];
     }
 }

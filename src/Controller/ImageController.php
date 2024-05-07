@@ -11,14 +11,14 @@
 
 namespace Genemu\Bundle\FormBundle\Controller;
 
-use Genemu\Bundle\FormBundle\Gd\File\Image;
+use Gd\File\Image;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class ImageController
+readonly class ImageController
 {
-    public function __construct(private readonly ParameterBagInterface $parameterBag)
+    public function __construct(private ParameterBagInterface $parameterBag)
     {
     }
 
@@ -32,7 +32,7 @@ class ImageController
 
         switch ($request->get('filter')) {
             case 'rotate':
-                $handle->addFilterRotate(90);
+                $handle->addFilterRotate();
 
                 break;
             case 'negative':
@@ -81,19 +81,19 @@ class ImageController
             $thumbnail = $handle->getThumbnail($selected);
         }
 
-        $json = array(
+        $json = [
             'result' => '1',
             'file' => $folder . '/' . $handle->getFilename() . '?' . time(),
-            'thumbnail' => array(
+            'thumbnail' => [
                 'file' => $folder . '/' . $thumbnail->getFilename() . '?' . time(),
                 'width' => $thumbnail->getWidth(),
                 'height' => $thumbnail->getHeight(),
-            ),
-            'image' => array(
+            ],
+            'image' => [
                 'width' => $handle->getWidth(),
                 'height' => $handle->getHeight(),
-            ),
-        );
+            ],
+        ];
 
         return new JsonResponse($json);
     }

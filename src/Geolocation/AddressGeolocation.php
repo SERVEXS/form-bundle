@@ -11,10 +11,12 @@
 
 namespace Genemu\Bundle\FormBundle\Geolocation;
 
+use Serializable;
+
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
-class AddressGeolocation implements \Serializable
+class AddressGeolocation implements Serializable
 {
     private $address;
     private $latitude;
@@ -58,13 +60,13 @@ class AddressGeolocation implements \Serializable
 
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
                 'address'   => $this->address,
                 'latitude'  => $this->latitude,
                 'longitude' => $this->longitude,
                 'locality'  => $this->locality,
-                'country'   => $this->country
-            ));
+                'country'   => $this->country,
+            ]);
     }
 
     public function unserialize($serialized)

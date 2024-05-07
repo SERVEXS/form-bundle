@@ -11,13 +11,11 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Doctrine\Type;
 
+use Doctrine\Persistence\ManagerRegistry;
+use Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList\AjaxEntityChoiceList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Doctrine\Common\Persistence\ManagerRegistry;
-
-use Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList\AjaxEntityChoiceList;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * AjaxEntityType
@@ -26,13 +24,8 @@ use Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList\AjaxEntityChoiceList;
  */
 class AjaxEntityType extends AbstractType
 {
-    private $registry;
+    private ManagerRegistry $registry;
 
-    /**
-     * Constructs
-     *
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
@@ -41,11 +34,11 @@ class AjaxEntityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $registry = $this->registry;
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'em'            => null,
             'class'         => null,
             'property'      => null,
@@ -63,14 +56,14 @@ class AjaxEntityType extends AbstractType
                     $options['group_by'],
                     $options['ajax']
                 );
-            }
-        ));
+            },
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'entity';
     }
@@ -78,7 +71,7 @@ class AjaxEntityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'genemu_ajaxentity';
     }

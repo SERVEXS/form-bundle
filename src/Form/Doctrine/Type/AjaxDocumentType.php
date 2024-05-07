@@ -11,11 +11,10 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Doctrine\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList\AjaxEntityChoiceList;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * AjaxDocumentType
@@ -24,24 +23,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class AjaxDocumentType extends AbstractType
 {
-    private $registry;
-
     /**
-     * Constructs
-     *
-     * @param ManagerRegistry $registry
-     */
-    public function __construct(ManagerRegistry $registry)
-    {
-        $this->registry = $registry;
-    }
-
-        /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'document_manager' => null,
             'class' => null,
             'property' => null,
@@ -59,15 +46,14 @@ class AjaxDocumentType extends AbstractType
                     $options['group_by'],
                     $options['ajax']
                 );
-            }
-        ));
-
+            },
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'document';
     }
@@ -75,7 +61,7 @@ class AjaxDocumentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'genemu_ajaxdocument';
     }

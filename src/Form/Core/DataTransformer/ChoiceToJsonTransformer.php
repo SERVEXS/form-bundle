@@ -11,10 +11,10 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\DataTransformer;
 
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 /**
  * ChoiceToJsonTransformer
@@ -23,23 +23,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class ChoiceToJsonTransformer implements DataTransformerInterface
 {
-    protected $choiceList;
-    protected $ajax;
-    protected $widget;
-    protected $multiple;
-
-    /**
-     * Constructs
-     *
-     * @param ArrayChoiceList $choiceList
-     * @param boolean         $ajax
-     */
-    public function __construct(ChoiceListInterface $choiceList, $ajax = false, $widget = 'choice', $multiple = false)
-    {
-        $this->choiceList = $choiceList;
-        $this->ajax = $ajax;
-        $this->multiple = $multiple;
-        $this->widget = $widget;
+    public function __construct(
+        protected ChoiceListInterface $choiceList,
+        protected bool $ajax = false,
+        protected string $widget = 'choice',
+        protected bool $multiple = false
+    ) {
     }
 
     /**
@@ -48,18 +37,18 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
     public function transform($choices)
     {
         if (empty($choices)) {
-            return;
+            return null;
         }
 
         if (is_scalar($choices)) {
-            $choices = array($choices);
+            $choices = [$choices];
         }
 
         if (!is_array($choices)) {
             throw new UnexpectedTypeException($choices, 'array');
         }
 
-        $choices = $this->choiceList->getIntersect($choices);
+        $choices = $this->choiceList->getChoicesForValues($choices);
 
         if (!$this->multiple) {
             $choices = current($choices);
@@ -74,7 +63,7 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
     public function reverseTransform($json)
     {
         $choices = json_decode(is_array($json) ? current($json) : $json, true);
-        
+
         // Single choice list
         if (!$this->multiple) {
 
@@ -89,34 +78,32 @@ class ChoiceToJsonTransformer implements DataTransformerInterface
             $this->addAjaxChoices($choices);
 
             return $choices['value'];
-
-        } else {
-
-            if (empty($choices)) {
-                return array();
-            }
-
-            if (!$this->isArrayValue($choices)) {
-                throw new TransformationFailedException('The format of the json array is bad');
-            }
-
-            $choices = array_unique($choices, SORT_REGULAR);
-
-            $values = array();
-
-            foreach ($choices as $choice) {
-                $this->addAjaxChoices($choice);
-
-                $values[] = $choice['value'];
-            }
-
-            return $values;
         }
+
+        if (empty($choices)) {
+            return [];
+        }
+
+        if (!$this->isArrayValue($choices)) {
+            throw new TransformationFailedException('The format of the json array is bad');
+        }
+
+        $choices = array_unique($choices, SORT_REGULAR);
+
+        $values = [];
+
+        foreach ($choices as $choice) {
+            $this->addAjaxChoices($choice);
+
+            $values[] = $choice['value'];
+        }
+
+        return $values;
     }
 
     private function addAjaxChoices(&$choices)
     {
-        if ($this->ajax && !in_array($this->widget, array('entity', 'document', 'model'))) {
+        if ($this->ajax && !in_array($this->widget, ['entity', 'document', 'model'])) {
             $this->choiceList->addAjaxChoice($choices);
         }
     }

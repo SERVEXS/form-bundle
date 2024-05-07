@@ -11,13 +11,12 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
+use Genemu\Bundle\FormBundle\Form\Core\EventListener\GeolocationListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Genemu\Bundle\FormBundle\Form\Core\EventListener\GeolocationListener;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * GeolocationType to JQueryLib
@@ -29,11 +28,11 @@ class GeolocationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('address', 'text');
 
-        foreach (array('latitude', 'longitude', 'locality', 'country') as $field) {
+        foreach (['latitude', 'longitude', 'locality', 'country'] as $field) {
             $option = $options[$field];
 
             if (isset($option['enabled']) && !empty($option['enabled'])) {
@@ -53,45 +52,45 @@ class GeolocationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars = array_replace($view->vars, array(
-            'configs'   => array(),
-            'elements'  => array(),
-            'map' => $options['map']
-        ));
+        $view->vars = array_replace($view->vars, [
+            'configs'   => [],
+            'elements'  => [],
+            'map' => $options['map'],
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'map' => false,
-            'latitude' => array(
+            'latitude' => [
                 'enabled' => false,
                 'hidden' => false,
-            ),
-            'longitude' => array(
+            ],
+            'longitude' => [
                 'enabled' => false,
                 'hidden' => false,
-            ),
-            'locality' => array(
+            ],
+            'locality' => [
                 'enabled' => false,
                 'hidden' => false,
-            ),
-            'country' => array(
+            ],
+            'country' => [
                 'enabled' => false,
                 'hidden' => false,
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'form';
     }
@@ -99,7 +98,7 @@ class GeolocationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'genemu_jquerygeolocation';
     }

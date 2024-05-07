@@ -2,6 +2,9 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\Type;
 
+use DateTime;
+use IntlDateFormatter;
+use Locale;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormInterface;
@@ -19,9 +22,9 @@ class PlainType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'widget'  => 'field',
             'read_only' => true,
             'disabled' => true,
@@ -29,11 +32,11 @@ class PlainType extends AbstractType
             'date_pattern' => null,
             'time_format' => null,
             'time_zone' => 'UTC',
-            'attr' => array(
-                'class' => $this->getName()
-            ),
+            'attr' => [
+                'class' => $this->getName(),
+            ],
             'compound' => false,
-        ));
+        ]);
     }
 
     /**
@@ -52,14 +55,14 @@ class PlainType extends AbstractType
             $value = 'null';
         } elseif (is_array($value)) {
             $value = implode(', ', $value);
-        } elseif ($value instanceof \DateTime) {
+        } elseif ($value instanceof DateTime) {
             $dateFormat = is_int($options['date_format']) ? $options['date_format'] : DateType::DEFAULT_FORMAT;
             $timeFormat = is_int($options['time_format']) ? $options['time_format'] : DateType::DEFAULT_FORMAT;
-            $calendar   = \IntlDateFormatter::GREGORIAN;
+            $calendar   = IntlDateFormatter::GREGORIAN;
             $pattern    = is_string($options['date_pattern']) ? $options['date_pattern'] : null;
 
-            $formatter  = new \IntlDateFormatter(
-                \Locale::getDefault(),
+            $formatter  = new IntlDateFormatter(
+                Locale::getDefault(),
                 $dateFormat,
                 $timeFormat,
                 $options['time_zone'],

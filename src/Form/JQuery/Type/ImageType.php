@@ -11,12 +11,11 @@
 
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
+use Gd\File\Image;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
-use Genemu\Bundle\FormBundle\Gd\File\Image;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * ImageType
@@ -59,21 +58,21 @@ class ImageType extends AbstractType
             if ($data->hasThumbnail($this->selected)) {
                 $thumbnail = $data->getThumbnail($this->selected);
 
-                $view->vars['thumbnail'] = array(
+                $view->vars['thumbnail'] = [
                     'file' => $configs['folder'] . '/' . $thumbnail->getFilename(),
                     'width' => $thumbnail->getWidth(),
                     'height' => $thumbnail->getHeight(),
-                );
+                ];
             }
 
             $value = $configs['folder'] . '/' . $data->getFilename();
 
-            $view->vars = array_replace($view->vars, array(
+            $view->vars = array_replace($view->vars, [
                 'value' => $value,
                 'file' => $value,
                 'width' => $data->getWidth(),
                 'height' => $data->getHeight(),
-            ));
+            ]);
         }
 
         $view->vars['filters'] = $this->filters;
@@ -82,14 +81,14 @@ class ImageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'configs' => array(
+        $resolver->setDefaults([
+            'configs' => [
                 'fileExt' => '*.jpg;*.gif;*.png;*.jpeg',
                 'fileDesc' => 'Web Image Files (.jpg, .gif, .png, .jpeg)',
-            )
-        ));
+            ],
+        ]);
     }
 
     /**

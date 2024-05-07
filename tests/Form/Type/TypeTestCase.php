@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Tests\Form\Type;
+namespace Tests\Form\Type;
 
+use Locale;
 use Symfony\Component\Form\Test\TypeTestCase as BaseTypeTestCase;
-use Genemu\Bundle\FormBundle\Tests\Form\Extension\TypeExtensionTest;
+use Tests\Form\Extension\TypeExtensionTest;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -21,11 +22,11 @@ abstract class TypeTestCase extends BaseTypeTestCase
 {
     protected $requestStack;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        \Locale::setDefault('en');
+        Locale::setDefault('en');
     }
 
     protected function getExtensions()

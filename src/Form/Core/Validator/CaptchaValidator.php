@@ -9,24 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Form\Core\Validator;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormError;
+namespace Form\Core\Validator;
 
 use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 /**
  * CaptchaValidator
  *
  * @author Olivier Chauvel <olivier@generation-multiple.com>
  */
-class CaptchaValidator implements EventSubscriberInterface
+readonly class CaptchaValidator implements EventSubscriberInterface
 {
-    public function __construct(private readonly Captcha $captcha)
+    public function __construct(private Captcha $captcha)
     {
     }
 
@@ -50,6 +48,6 @@ class CaptchaValidator implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return array(FormEvents::POST_SUBMIT => 'validate');
+        return [FormEvents::POST_SUBMIT => 'validate'];
     }
 }

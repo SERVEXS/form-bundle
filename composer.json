@@ -19,12 +19,21 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "symfony/framework-bundle": "~3.4|~4.0|~5.0|~6.0",
+        "php": "^8.2",
         "symfony/config": "^5.0|^6.0",
+        "symfony/dependency-injection": "^5.0|^6.0",
+        "symfony/http-kernel": "^5.0|^6.0",
         "symfony/doctrine-bridge": "^5.0|^6.0",
-        "symfony/form": "~3.4|~4.0|~5.0|~6.0",
+        "symfony/form": "~5.0|~6.0",
         "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "rector/rector": "^1.0",
+        "doctrine/doctrine-bundle": "^2.0",
+        "symfony/twig-bridge": "^5.0|^6.0",
+        "doctrine/mongodb-odm-bundle": "^4.0|^5.0",
+        "friendsofphp/php-cs-fixer": "^3.55"
     },
     "suggest": {
         "symfony/twig-bridge": "For integration into Twig templates",
@@ -42,17 +51,14 @@
             "Genemu\\Bundle\\FormBundle\\Tests\\": "tests/"
         }
     },
-    "target-dir": "Genemu/Bundle/FormBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "4.0-dev"
         }
     },
-    "require-dev": {
-        "rector/rector": "^1.0",
-        "doctrine/doctrine-bundle": "^2.0"
-    },
+
     "scripts": {
-        "rector": "rector process "
+        "rector": "rector process",
+        "cs-fix": "php-cs-fixer fix src"
     }
 }

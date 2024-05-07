@@ -11,12 +11,13 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\Type;
 
+use Locale;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * TinymceType
@@ -40,29 +41,29 @@ class TinymceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $configs = array_merge(array(
-            'language' => \Locale::getDefault(),
-        ),
-		$this->options);
+        $configs = array_merge(
+            [
+            'language' => Locale::getDefault(),
+        ],
+            $this->options
+        );
 
         $resolver
-            ->setDefaults(array(
-                'configs' => array(),
+            ->setDefaults([
+                'configs' => [],
                 'required' => false,
                 'theme' => 'default',
-            ))
-            ->setAllowedTypes(array(
+            ])
+
+            ->setAllowedTypes([
                 'configs' => 'array',
                 'theme' => 'string',
-            ))
-            ->setNormalizers(array(
-                'configs' => function (Options $options, $value) use ($configs) {
-                    return array_merge($configs, $value);
-                },
-            ))
-        ;
+            ]);
+            $resolver->setNormalizer('configs', function (Options $options, $value) use ($configs) {
+                return array_merge($configs, $value);
+            });
     }
 
     /**

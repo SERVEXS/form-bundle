@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Gd\Filter;
+namespace Gd\Filter;
 
-use Genemu\Bundle\FormBundle\Gd\Gd;
+use Gd\Gd;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -36,7 +36,7 @@ class Opacity extends Gd implements Filter
 
         $color = $this->allocateColor('FFF', $this->opacity);
 
-        imagefill($this->resource, 0, 0 , $color);
+        imagefill($this->resource, 0, 0, $color);
         imagecopymerge($this->resource, $tmp, 0, 0, 0, 0, $this->width, $this->height, 75);
         imagedestroy($tmp);
 

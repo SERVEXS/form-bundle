@@ -11,15 +11,14 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Form\Core\Validator\CaptchaValidator;
 use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
-use Genemu\Bundle\FormBundle\Form\Core\Validator\CaptchaValidator;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * CaptchaType
@@ -54,12 +53,12 @@ class CaptchaType extends AbstractType
     {
         $captcha = $this->captcha;
 
-        $view->vars = array_replace($view->vars, array(
+        $view->vars = array_replace($view->vars, [
             'value' => '',
             'src' => $captcha->getBase64($options['format']),
             'width' => $captcha->getWidth(),
             'height' => $captcha->getHeight(),
-        ));
+        ]);
     }
 
     /**
@@ -68,7 +67,7 @@ class CaptchaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = array_merge(
-            array('attr' => array('autocomplete' => 'off')),
+            ['attr' => ['autocomplete' => 'off']],
             $this->options
         );
 

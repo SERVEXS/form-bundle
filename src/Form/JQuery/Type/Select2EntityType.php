@@ -12,10 +12,11 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Select2EntityType to JQueryLib
@@ -26,18 +27,14 @@ use Symfony\Component\OptionsResolver\Options;
  */
 class Select2EntityType extends AbstractType
 {
-
-    private $configs;
-
-    public function __construct( array $configs = array())
+    public function __construct(private array $configs = [])
     {
-        $this->configs = $configs;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['configs'] = $options['configs'];
 
@@ -53,35 +50,34 @@ class Select2EntityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $defaults = $this->configs;
         $resolver
-            ->setDefaults(array(
-                'configs'       => $defaults,
-                'transformer'   => null,
-            ))
+            ->setDefaults([
+                'configs' => $defaults,
+                'transformer' => null,
+            ])
             ->setNormalizer(
                 'configs',
                 function (Options $options, $configs) use ($defaults) {
                     return array_merge($defaults, $configs);
                 }
-            )
-        ;
+            );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParent()
+    public function getParent(): ?string
     {
-        return 'Symfony\Bridge\Doctrine\Form\Type\EntityType';
+        return EntityType::class;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'genemu_jqueryselect2';
     }

@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Genemu\Bundle\FormBundle\Form\Model\ChoiceList;
+namespace Form\Model\ChoiceList;
 
+use Closure;
 use Symfony\Bridge\Propel1\Form\ChoiceList\ModelChoiceList;
-use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
  * AjaxModelChoiceList
@@ -30,11 +31,11 @@ class AjaxModelChoiceList extends ModelChoiceList
      *
      * @param string         $class
      * @param string         $property
-     * @param array|\Closure $choices
+     * @param array|Closure $choices
      * @param QueryObject    $qo
      * @param boolean        $ajax
      */
-    public function __construct($class, $property = null, $choices = array(), $qo = null, $ajax = false)
+    public function __construct($class, $property = null, $choices = [], $qo = null, $ajax = false)
     {
         $this->ajax = $ajax;
 
@@ -62,12 +63,12 @@ class AjaxModelChoiceList extends ModelChoiceList
     {
         $choices = parent::getChoices();
 
-        $array = array();
+        $array = [];
         foreach ($choices as $value => $label) {
-            $array[] = array(
+            $array[] = [
                 'value' => $value,
-                'label' => $label
-            );
+                'label' => $label,
+            ];
         }
 
         return $array;
@@ -82,7 +83,7 @@ class AjaxModelChoiceList extends ModelChoiceList
      */
     public function getIntersect(array $ids)
     {
-        $intersect = array();
+        $intersect = [];
 
         if ($this->ajax) {
             foreach ($ids as $id) {
@@ -94,10 +95,10 @@ class AjaxModelChoiceList extends ModelChoiceList
                     $label = (string) $model;
                 }
 
-                $intersect[] = array(
+                $intersect[] = [
                     'value' => $id,
-                    'label' => $label
-                );
+                    'label' => $label,
+                ];
             }
         } else {
             foreach ($this->getChoices() as $choice) {

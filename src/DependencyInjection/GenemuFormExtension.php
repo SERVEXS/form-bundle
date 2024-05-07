@@ -11,6 +11,9 @@
 
 namespace Genemu\Bundle\FormBundle\DependencyInjection;
 
+use LogicException;
+use ReflectionClass;
+use RuntimeException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -57,7 +60,7 @@ class GenemuFormExtension extends Extension
         }
 
         foreach (
-            array(
+            [
                 'captcha',
                 'recaptcha',
                 'tinymce',
@@ -68,7 +71,7 @@ class GenemuFormExtension extends Extension
                 'select2Entity',
                 'select2Choice',
                 'select2Hidden',
-            ) as $type
+            ] as $type
         ) {
             if (isset($configs[$type]) && !empty($configs[$type]['enabled'])) {
                 $method = 'register' . ucfirst($type) . 'Configuration';
@@ -104,12 +107,12 @@ class GenemuFormExtension extends Extension
         }
 
         $backgroundColor = preg_replace('/[^0-9A-Fa-f]/', '', $configs['background_color']);
-        if (!in_array(strlen($backgroundColor), array(3, 6), true)) {
+        if (!in_array(strlen($backgroundColor), [3, 6], true)) {
             $configs['background_color'] = 'DDDDDD';
         }
 
         $borderColor = preg_replace('/[^0-9A-Fa-f]/', '', $configs['border_color']);
-        if (!in_array(strlen($borderColor), array(3, 6), true)) {
+        if (!in_array(strlen($borderColor), [3, 6], true)) {
             $configs['border_color'] = '000000';
         }
 
@@ -130,11 +133,11 @@ class GenemuFormExtension extends Extension
         }
 
         if (empty($configs['private_key'])) {
-            throw new \LogicException('Option recaptcha.private_key does not empty.');
+            throw new LogicException('Option recaptcha.private_key does not empty.');
         }
 
         if (empty($configs['public_key'])) {
-            throw new \LogicException('Option recaptcha.public_key does not empty.');
+            throw new LogicException('Option recaptcha.public_key does not empty.');
         }
 
         $container->setParameter('genemu.form.recaptcha.server_url', $serverUrl);
@@ -142,7 +145,7 @@ class GenemuFormExtension extends Extension
         $container->setParameter('genemu.form.recaptcha.public_key', $configs['public_key']);
         $container->setParameter('genemu.form.recaptcha.code', $configs['code']);
         $container->setParameter('genemu.form.recaptcha.options', $configs['configs']);
-        $validationOptions = array_merge(array('code' => $configs['code']), $configs['validation']);
+        $validationOptions = array_merge(['code' => $configs['code']], $configs['validation']);
         $container->setParameter('genemu.form.recaptcha.validation.options', $validationOptions);
     }
 
@@ -155,15 +158,15 @@ class GenemuFormExtension extends Extension
     private function registerTinymceConfiguration(array $configs, ContainerBuilder $container)
     {
         if (isset($configs['script_url']) && !empty($configs['script_url'])) {
-            $configs['configs'] = array_merge($configs['configs'], array(
+            $configs['configs'] = array_merge($configs['configs'], [
                 'script_url' => $configs['script_url'],
-            ));
+            ]);
         }
 
         if (isset($configs['theme']) && !empty($configs['theme'])) {
-            $configs['configs'] = array_merge($configs['configs'], array(
+            $configs['configs'] = array_merge($configs['configs'], [
                 'theme' => $configs['theme'],
-            ));
+            ]);
         }
 
         $container->setParameter('genemu.form.tinymce.configs', $configs['configs']);
@@ -192,16 +195,16 @@ class GenemuFormExtension extends Extension
         $rootDir = $container->getParameterBag()->resolveValue($rootDir);
 
         $uploadDir = $rootDir . '/' . $configs['folder'];
-        if (!is_dir($uploadDir) && false === @mkdir($uploadDir, 0777, true)) {
-            throw new \RuntimeException(sprintf('Could not create upload directory "%s".', $uploadDir));
+        if (!is_dir($uploadDir) && false === @mkdir($uploadDir, 0o777, true)) {
+            throw new RuntimeException(sprintf('Could not create upload directory "%s".', $uploadDir));
         }
 
-        $configs['configs'] = array_merge($configs['configs'], array(
+        $configs['configs'] = array_merge($configs['configs'], [
             'script' => 'genemu_upload',
             'swf' => $configs['swf'],
             'cancelImg' => $configs['cancel_img'],
             'folder' => $configs['folder'],
-        ));
+        ]);
 
         $container->setParameter('genemu.form.file.folder', $configs['folder']);
         $container->setParameter('genemu.form.file.upload_dir', $rootDir . '/' . $configs['folder']);
@@ -217,15 +220,15 @@ class GenemuFormExtension extends Extension
     private function registerImageConfiguration(array $configs, ContainerBuilder $container)
     {
         if (empty($configs['selected'])) {
-            throw new \LogicException('Your selected thumbnail does not empty.');
+            throw new LogicException('Your selected thumbnail does not empty.');
         }
 
         if (!isset($configs['thumbnails'][$configs['selected']])) {
-            throw new \LogicException(sprintf('Your selected %s is not thumbnail.', $configs['selected']));
+            throw new LogicException(sprintf('Your selected %s is not thumbnail.', $configs['selected']));
         }
 
-        $filters = array();
-        $reflection = new \ReflectionClass('Genemu\\Bundle\\FormBundle\\Gd\\File\\Image');
+        $filters = [];
+        $reflection = new ReflectionClass('Genemu\\Bundle\\FormBundle\\Gd\\File\\Image');
 
         foreach ($configs['filters'] as $filter) {
             if ($reflection->hasMethod('addFilter' . ucfirst($filter))) {
@@ -242,33 +245,33 @@ class GenemuFormExtension extends Extension
     {
         $serviceId = 'genemu.form.jquery.type.autocomplete';
         $textDef = new ChildDefinition($serviceId);
-        $textDef->addArgument('text')->addTag('form.type', array('alias' => 'genemu_jqueryautocomplete_text'));
+        $textDef->addArgument('text')->addTag('form.type', ['alias' => 'genemu_jqueryautocomplete_text']);
         $container->setDefinition($serviceId . '.text', $textDef);
 
         $doctrineDef = new ChildDefinition($serviceId);
         $doctrineDef
             ->addArgument('entity')
             ->addArgument(new Reference('doctrine', ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->addTag('form.type', array('alias' => 'genemu_jqueryautocomplete_entity'));
+            ->addTag('form.type', ['alias' => 'genemu_jqueryautocomplete_entity']);
         $container->setDefinition($serviceId . '.entity', $doctrineDef);
 
         $mongoDef = new ChildDefinition($serviceId);
         $mongoDef
             ->addArgument('document')
             ->addArgument(new Reference('doctrine_mongodb', ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->addTag('form.type', array('alias' => 'genemu_jqueryautocomplete_document'));
+            ->addTag('form.type', ['alias' => 'genemu_jqueryautocomplete_document']);
         $container->setDefinition($serviceId . '.document', $mongoDef);
     }
 
     private function registerSelect2Configuration(array $configs, ContainerBuilder $container)
     {
         $serviceId = 'genemu.form.jquery.type.select2';
-        foreach (array_merge($this->getChoiceTypeNames(), array('hidden')) as $type) {
+        foreach (array_merge($this->getChoiceTypeNames(), ['hidden']) as $type) {
             $typeDef = new ChildDefinition($serviceId);
             $typeDef
                 ->addArgument($type)
                 ->addArgument($configs['configs'])
-                ->addTag('form.type', array('alias' => 'genemu_jqueryselect2_' . $type));
+                ->addTag('form.type', ['alias' => 'genemu_jqueryselect2_' . $type]);
 
             $container->setDefinition($serviceId . '.' . $type, $typeDef);
         }
@@ -285,7 +288,7 @@ class GenemuFormExtension extends Extension
     {
         foreach ($this->getChoiceTypeNames() as $type) {
             $typeDef = new ChildDefinition($serviceId);
-            $typeDef->addArgument($type)->addTag('form.type', array('alias' => 'genemu_' . $name . '_' . $type));
+            $typeDef->addArgument($type)->addTag('form.type', ['alias' => 'genemu_' . $name . '_' . $type]);
 
             $container->setDefinition($serviceId . '.' . $type, $typeDef);
         }
@@ -293,6 +296,6 @@ class GenemuFormExtension extends Extension
 
     private function getChoiceTypeNames()
     {
-        return array('choice', 'language', 'country', 'timezone', 'locale', 'entity', 'document', 'model', 'currency');
+        return ['choice', 'language', 'country', 'timezone', 'locale', 'entity', 'document', 'model', 'currency'];
     }
 }
