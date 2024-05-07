@@ -38,7 +38,7 @@ public function registerBundles()
 ### Step 3: Initialize assets
 
 ``` bash
-$ php app/console assets:install web/
+$ php app/console assets:install public/
 ```
 
 ## Form types
