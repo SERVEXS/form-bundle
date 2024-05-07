@@ -3,3 +3,5 @@ composer.lock
 /nbproject/private/
 
 /.idea
+
+.php-cs-fixer.cache
