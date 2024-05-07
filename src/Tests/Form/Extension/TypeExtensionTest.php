@@ -9,9 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Form\Extension;
+namespace Genemu\Bundle\FormBundle\Tests\Form\Extension;
 
 use Form;
+use Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType;
+use Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType;
 use Genemu\Bundle\FormBundle\Form\Core\Validator\ReCaptchaValidator;
 use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
@@ -34,7 +36,7 @@ class TypeExtensionTest extends CoreExtension
     protected function loadTypes(): array
     {
         return array_merge(parent::loadTypes(), array(
-            new \Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), array(
+            new CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), array(
                 'script' => 'genemu_upload',
                 'uploader' => '/js/uploadify.swf',
                 'cancelImg' => '/images/cancel.png',
@@ -64,7 +66,7 @@ class TypeExtensionTest extends CoreExtension
                 'border_color' => '000000',
                 'code' => '1234',
             )),
-            new \Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType(
+            new ReCaptchaType(
                 new ReCaptchaValidator(
                     $this->requestStack,
                     'privateKey',

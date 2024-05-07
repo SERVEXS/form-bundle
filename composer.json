@@ -50,11 +50,6 @@
       "Genemu\\Bundle\\FormBundle\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Genemu\\Bundle\\FormBundle\\Tests\\": "tests/"
-    }
-  },
   "extra": {
     "branch-alias": {
       "dev-master": "4.0-dev"

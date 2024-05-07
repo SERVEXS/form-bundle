@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Form\Core\Type;
+namespace Genemu\Bundle\FormBundle\Tests\Form\Core\Type;
 
+use Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType;
+use Genemu\Bundle\FormBundle\Tests\Form\Type\TypeTestCase;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Tests\Form\Type\TypeTestCase;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -30,7 +31,7 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testDefaultConfigs()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType');
+        $form = $this->factory->create(CaptchaType::class);
         $view = $form->createView();
         $captcha = $form->getConfig()->getAttribute('captcha');
 
@@ -43,7 +44,7 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testConfigs()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType', null, array(
+        $form = $this->factory->create(CaptchaType::class, null, array(
             'width' => 200,
             'font_color' => array('000'),
             'code' => '1111',
@@ -62,7 +63,7 @@ class CaptchaTypeTest extends TypeTestCase
     public function testFaultFonts()
     {
         try {
-            $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType', null, array(
+            $form = $this->factory->create(CaptchaType::class, null, array(
                 'fonts' => array('toto.ttf')
             ));
         } catch (FileNotFoundException $excepted) {
@@ -77,7 +78,7 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testFaultFormat()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType', null, array(
+        $form = $this->factory->create(CaptchaType::class, null, array(
             'format' => 'bar'
         ));
 
@@ -88,7 +89,7 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testCodePasses()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType');
+        $form = $this->factory->create(CaptchaType::class);
         $form->createView();
 
         $form->submit('1234');
@@ -98,7 +99,7 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testCodeFails()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType');
+        $form = $this->factory->create(CaptchaType::class);
         $form->createView();
 
         $form->submit('4321');

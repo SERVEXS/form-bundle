@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Form\Core\Type;
+namespace Genemu\Bundle\FormBundle\Tests\Form\Core\Type;
 
+use Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType;
+use Genemu\Bundle\FormBundle\Tests\Form\Type\TypeTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Tests\Form\Type\TypeTestCase;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -21,7 +22,7 @@ class ReCaptchaTypeTest extends TypeTestCase
 {
     public function testDefaultConfigs()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType');
+        $form = $this->factory->create(ReCaptchaType::class);
         $view = $form->createView();
 
         $this->assertEquals('publicKey', $view->vars['public_key']);
@@ -39,7 +40,7 @@ class ReCaptchaTypeTest extends TypeTestCase
 
     public function testConfigs()
     {
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType', null, array(
+        $form = $this->factory->create(ReCaptchaType::class, null, array(
             'configs' => array(
                 'theme' => 'blackglass',
             ),
@@ -67,7 +68,7 @@ class ReCaptchaTypeTest extends TypeTestCase
         $request = new Request(array(), array('recaptcha_response_field' => $code));
         $this->requestStack->method('getMasterRequest')->willReturn($request);
 
-        $form = $this->factory->create('Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType');
+        $form = $this->factory->create(ReCaptchaType::class);
 
         $form->submit(null);
 

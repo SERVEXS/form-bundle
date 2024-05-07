@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Form\Type;
+namespace Genemu\Bundle\FormBundle\Tests\Form\Type;
 
+use Genemu\Bundle\FormBundle\Tests\Form\Extension\TypeExtensionTest;
 use Locale;
 use Symfony\Component\Form\Test\TypeTestCase as BaseTypeTestCase;
-use Tests\Form\Extension\TypeExtensionTest;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -38,6 +39,6 @@ abstract class TypeTestCase extends BaseTypeTestCase
 
     protected function createRequestStackMock()
     {
-        return $this->requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
+        return $this->requestStack = $this->getMock(RequestStack::class);
     }
 }
