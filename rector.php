@@ -7,9 +7,9 @@ return RectorConfig::configure()
         __DIR__ . '/src',
     ])
     ->withSets([
-        \Rector\Set\ValueObject\SetList::PHP_80,
-        \Rector\Set\ValueObject\SetList::PHP_81,
-        \Rector\Set\ValueObject\SetList::PHP_82,
+//        \Rector\Set\ValueObject\SetList::PHP_80,
+//        \Rector\Set\ValueObject\SetList::PHP_81,
+//        \Rector\Set\ValueObject\SetList::PHP_82,
 //        //uncomment for sf6 fixes
 //        \Rector\Symfony\Set\SymfonySetList::SYMFONY_60,
 //        \Rector\Symfony\Set\SymfonySetList::SYMFONY_61,
