@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Form\Core\Validator;
+namespace Genemu\Bundle\FormBundle\Form\Core\Validator;
 
 use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

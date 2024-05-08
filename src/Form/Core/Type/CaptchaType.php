@@ -11,7 +11,7 @@
 
 namespace Genemu\Bundle\FormBundle\Form\Core\Type;
 
-use Form\Core\Validator\CaptchaValidator;
+use Genemu\Bundle\FormBundle\Form\Core\Validator\CaptchaValidator;
 use Genemu\Bundle\FormBundle\Gd\Type\Captcha;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
