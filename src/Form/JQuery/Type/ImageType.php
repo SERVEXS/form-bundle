@@ -76,12 +76,12 @@ class ImageType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return 'genemu_jqueryfile';
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'genemu_jqueryimage';
     }
