@@ -32,9 +32,9 @@ abstract class TypeTestCase extends BaseTypeTestCase
 
     protected function getExtensions()
     {
-        return array(
-            new TypeExtensionTest($this->createRequestStackMock())
-        );
+        return [
+            new TypeExtensionTest($this->createRequestStackMock()),
+        ];
     }
 
     protected function createRequestStackMock()

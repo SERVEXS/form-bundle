@@ -27,37 +27,37 @@ class ReCaptchaTypeTest extends TypeTestCase
 
         $this->assertEquals('publicKey', $view->vars['public_key']);
         $this->assertEquals('http://www.google.com/recaptcha/api', $view->vars['server']);
-        $this->assertEquals(array('lang' => 'en'), $view->vars['configs']);
+        $this->assertEquals(['lang' => 'en'], $view->vars['configs']);
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'host' => 'www.google.com',
             'port' => 80,
             'path' => '/recaptcha/api/verify',
             'timeout' => 10,
             'code' => '1234',
-        ), $form->getConfig()->getAttribute('option_validator'));
+        ], $form->getConfig()->getAttribute('option_validator'));
     }
 
     public function testConfigs()
     {
-        $form = $this->factory->create(ReCaptchaType::class, null, array(
-            'configs' => array(
+        $form = $this->factory->create(ReCaptchaType::class, null, [
+            'configs' => [
                 'theme' => 'blackglass',
-            ),
-            'validator' => array('timeout' => 30),
-        ));
+            ],
+            'validator' => ['timeout' => 30],
+        ]);
         $view = $form->createView();
 
         $this->assertEquals('publicKey', $view->vars['public_key']);
-        $this->assertEquals(array('theme' => 'blackglass', 'lang' => 'en'), $view->vars['configs']);
+        $this->assertEquals(['theme' => 'blackglass', 'lang' => 'en'], $view->vars['configs']);
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'host' => 'www.google.com',
             'port' => 80,
             'path' => '/recaptcha/api/verify',
             'timeout' => 30,
             'code' => '1234',
-        ), $form->getConfig()->getAttribute('option_validator'));
+        ], $form->getConfig()->getAttribute('option_validator'));
     }
 
     /**
@@ -65,7 +65,7 @@ class ReCaptchaTypeTest extends TypeTestCase
      */
     public function testCode($code, $isValid)
     {
-        $request = new Request(array(), array('recaptcha_response_field' => $code));
+        $request = new Request([], ['recaptcha_response_field' => $code]);
         $this->requestStack->method('getMasterRequest')->willReturn($request);
 
         $form = $this->factory->create(ReCaptchaType::class);
@@ -77,9 +77,9 @@ class ReCaptchaTypeTest extends TypeTestCase
 
     public function provideCodes()
     {
-        return array(
-            array('1234', true),
-            array('4321', false),
-        );
+        return [
+            ['1234', true],
+            ['4321', false],
+        ];
     }
 }

@@ -81,7 +81,7 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue(['252525', '8B8787', '550707', '3526E6', '88531E'])
                             ->beforeNormalization()
                                 ->always()
-                                ->then(fn($v) => array_filter($v, function ($v) {
+                                ->then(fn ($v) => array_filter($v, function ($v) {
                                     $v = preg_replace('/[^0-9A-Fa-f]/', '', (string) $v);
 
                                     return in_array(strlen($v), [3, 6]);

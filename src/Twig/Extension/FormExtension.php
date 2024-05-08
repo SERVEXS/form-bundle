@@ -30,8 +30,7 @@ class FormExtension extends AbstractExtension
          * templates without having to call a getter, which slightly decreases performance.
          */
         public FormRendererInterface $renderer
-    )
-    {
+    ) {
     }
 
     public function getFunctions(): array

@@ -44,12 +44,12 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testConfigs()
     {
-        $form = $this->factory->create(CaptchaType::class, null, array(
+        $form = $this->factory->create(CaptchaType::class, null, [
             'width' => 200,
-            'font_color' => array('000'),
+            'font_color' => ['000'],
             'code' => '1111',
             'format' => 'gif',
-        ));
+        ]);
 
         $view = $form->createView();
         $captcha = $form->getConfig()->getAttribute('captcha');
@@ -63,9 +63,9 @@ class CaptchaTypeTest extends TypeTestCase
     public function testFaultFonts()
     {
         try {
-            $form = $this->factory->create(CaptchaType::class, null, array(
-                'fonts' => array('toto.ttf')
-            ));
+            $form = $this->factory->create(CaptchaType::class, null, [
+                'fonts' => ['toto.ttf'],
+            ]);
         } catch (FileNotFoundException $excepted) {
             $this->assertStringStartsWith('The file', $excepted->getMessage());
             $this->assertStringEndsWith('does not exist', $excepted->getMessage());
@@ -78,9 +78,9 @@ class CaptchaTypeTest extends TypeTestCase
 
     public function testFaultFormat()
     {
-        $form = $this->factory->create(CaptchaType::class, null, array(
-            'format' => 'bar'
-        ));
+        $form = $this->factory->create(CaptchaType::class, null, [
+            'format' => 'bar',
+        ]);
 
         $view = $form->createView();
 

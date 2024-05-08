@@ -11,7 +11,6 @@
 
 namespace Genemu\Bundle\FormBundle\Tests\Form\Extension;
 
-use Form;
 use Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType;
 use Genemu\Bundle\FormBundle\Form\Core\Type\ReCaptchaType;
 use Genemu\Bundle\FormBundle\Form\Core\Validator\ReCaptchaValidator;
@@ -35,8 +34,8 @@ class TypeExtensionTest extends CoreExtension
 
     protected function loadTypes(): array
     {
-        return array_merge(parent::loadTypes(), array(
-            new CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), array(
+        return array_merge(parent::loadTypes(), [
+            new CaptchaType(new Captcha(new Session(new MockArraySessionStorage()), 's$cr$t'), [
                 'script' => 'genemu_upload',
                 'uploader' => '/js/uploadify.swf',
                 'cancelImg' => '/images/cancel.png',
@@ -48,38 +47,38 @@ class TypeExtensionTest extends CoreExtension
                 'format' => 'png',
                 'chars' => range(0, 9),
                 'font_size' => 18,
-                'font_color' => array(
+                'font_color' => [
                     '252525',
                     '8B8787',
                     '550707',
                     '3526E6',
-                    '88531E'
-                ),
-                'fonts' => array(
+                    '88531E',
+                ],
+                'fonts' => [
                     __DIR__ . '/../../Fixtures/fonts/akbar.ttf',
                     __DIR__ . '/../../Fixtures/fonts/brushcut.ttf',
                     __DIR__ . '/../../Fixtures/fonts/molten.ttf',
                     __DIR__ . '/../../Fixtures/fonts/planetbe.ttf',
                     __DIR__ . '/../../Fixtures/fonts/whoobub.ttf',
-                ),
+                ],
                 'background_color' => 'DDDDDD',
                 'border_color' => '000000',
                 'code' => '1234',
-            )),
+            ]),
             new ReCaptchaType(
                 new ReCaptchaValidator(
                     $this->requestStack,
                     'privateKey',
-                    array(
+                    [
                         'host' => 'www.google.com',
                         'port' => 80,
                         'path' => '/recaptcha/api/verify',
                         'timeout' => 10,
                         'code' => '1234',
-                    )),
+                    ]),
                 'publicKey',
                 'http://www.google.com/recaptcha/api',
-                array()),
-        ));
+                []),
+        ]);
     }
 }
