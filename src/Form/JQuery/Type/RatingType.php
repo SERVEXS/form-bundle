@@ -60,7 +60,7 @@ class RatingType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'choice';
+        return \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class;
     }
 
     public function getBlockPrefix(): string

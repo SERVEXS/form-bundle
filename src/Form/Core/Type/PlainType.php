@@ -76,7 +76,7 @@ class PlainType extends AbstractType
         $view->vars['value'] = (string) $value;
     }
 
-    public function getName(): string
+    public function getBlockPrefix(): string
     {
         return 'genemu_plain';
     }

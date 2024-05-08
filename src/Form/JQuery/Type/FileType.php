@@ -74,7 +74,7 @@ class FileType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'file';
+        return \Symfony\Component\Form\Extension\Core\Type\FileType::class;
     }
 
     public function getBlockPrefix(): string

@@ -52,7 +52,7 @@ class AjaxDocumentType extends AbstractType
         return 'document';
     }
 
-    public function getName(): string
+    public function getBlockPrefix(): string
     {
         return 'genemu_ajaxdocument';
     }

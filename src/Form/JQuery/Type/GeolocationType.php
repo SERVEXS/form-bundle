@@ -27,7 +27,7 @@ class GeolocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('address', 'text');
+        $builder->add('address', \Symfony\Component\Form\Extension\Core\Type\TextType::class);
 
         foreach (['latitude', 'longitude', 'locality', 'country'] as $field) {
             $option = $options[$field];
@@ -80,7 +80,7 @@ class GeolocationType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'form';
+        return \Symfony\Component\Form\Extension\Core\Type\FormType::class;
     }
 
     public function getBlockPrefix(): string

@@ -13,6 +13,7 @@ namespace Genemu\Bundle\FormBundle\Form\Doctrine\Type;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Genemu\Bundle\FormBundle\Form\Doctrine\ChoiceList\AjaxEntityChoiceList;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -59,10 +60,10 @@ class AjaxEntityType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'entity';
+        return EntityType::class;
     }
 
-    public function getName(): string
+    public function getBlockPrefix(): string
     {
         return 'genemu_ajaxentity';
     }

@@ -58,7 +58,7 @@ class AjaxModelType extends AbstractType
         return 'model';
     }
 
-    public function getName(): string
+    public function getBlockPrefix(): string
     {
         return 'genemu_ajaxmodel';
     }

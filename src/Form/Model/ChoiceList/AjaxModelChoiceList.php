@@ -82,7 +82,7 @@ class AjaxModelChoiceList extends ModelChoiceList
                 $model = $this->getModel($id);
 
                 if ($this->propertyPath) {
-                    $label = PropertyAccess::getPropertyAccessor()->getValue($model, $this->propertyPath);
+                    $label = PropertyAccess::createPropertyAccessor()->getValue($model, $this->propertyPath);
                 } else {
                     $label = (string) $model;
                 }

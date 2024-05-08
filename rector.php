@@ -6,6 +6,9 @@ return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/src',
     ])
+    ->withSets([
+        \Rector\Symfony\Set\SymfonySetList::SYMFONY_30
+    ])
     ->withRules([
-        \Rector\Symfony\Set\SymfonySetList::SYMFONY_28
+       //
     ]);

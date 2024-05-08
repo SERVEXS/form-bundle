@@ -45,7 +45,7 @@ class SliderType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'integer';
+        return \Symfony\Component\Form\Extension\Core\Type\IntegerType::class;
     }
 
     public function getBlockPrefix(): string

@@ -63,7 +63,7 @@ class TinymceType extends AbstractType
         return TextareaType::class;
     }
 
-    public function getName(): string
+    public function getBlockPrefix(): string
     {
         return 'genemu_tinymce';
     }
