@@ -246,7 +246,8 @@ class Gd implements GdInterface
      * @param int $x
      * @param int $y
      *
-     * @return array
+     * @return int|false
+     * @throws Exception
      */
     public function getColor($x, $y)
     {

@@ -13,6 +13,8 @@ namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Genemu\Bundle\FormBundle\Form\Core\EventListener\GeolocationListener;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -27,7 +29,7 @@ class GeolocationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('address', \Symfony\Component\Form\Extension\Core\Type\TextType::class);
+        $builder->add('address', TextType::class);
 
         foreach (['latitude', 'longitude', 'locality', 'country'] as $field) {
             $option = $options[$field];
@@ -80,7 +82,7 @@ class GeolocationType extends AbstractType
 
     public function getParent(): ?string
     {
-        return \Symfony\Component\Form\Extension\Core\Type\FormType::class;
+        return FormType::class;
     }
 
     public function getBlockPrefix(): string

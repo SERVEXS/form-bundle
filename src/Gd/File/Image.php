@@ -218,6 +218,7 @@ class Image extends File
      * Get gd manipulator.
      *
      * @return Gd
+     * @throws Exception
      */
     public function getGd()
     {
