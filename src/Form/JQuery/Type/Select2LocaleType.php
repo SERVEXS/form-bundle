@@ -12,11 +12,11 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 
 /**
  * Select2LocaleType to JQueryLib.
@@ -38,7 +38,7 @@ class Select2LocaleType extends AbstractType
         // Adds a custom block prefix
         array_splice(
             $view->vars['block_prefixes'],
-            array_search($this->getBlockPrefix() .  $view->vars['name'], $view->vars['block_prefixes']),
+            array_search($this->getBlockPrefix() . $view->vars['name'], $view->vars['block_prefixes']),
             0,
             'genemu_jqueryselect2'
         );

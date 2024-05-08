@@ -11,6 +11,7 @@
 
 namespace Genemu\Bundle\FormBundle\DependencyInjection;
 
+use Genemu\Bundle\FormBundle\Gd\File\Image;
 use LogicException;
 use ReflectionClass;
 use RuntimeException;
@@ -21,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Genemu\Bundle\FormBundle\Gd\File\Image;
 
 /**
  * GenemuFormExtension.
