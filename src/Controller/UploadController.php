@@ -27,7 +27,7 @@ readonly class UploadController
         $handle = $request->files->get('Filedata');
 
         $folder = $this->parameterBag->get('genemu.form.file.folder');
-        $uploadDir = $this->$this->parameterBag->get('genemu.form.file.upload_dir');
+        $uploadDir = $this->parameterBag->get('genemu.form.file.upload_dir');
         $name = uniqid() . 'Controller' . $handle->guessExtension();
 
         $json = [];
@@ -39,12 +39,12 @@ readonly class UploadController
                 'file' => '',
             ];
 
-            if (str_contains($handle->getMimeType(), 'image')) {
+            if (str_contains((string) $handle->getMimeType(), 'image')) {
                 $handle = new Image($handle->getPathname());
                 $thumbnail = $handle;
 
-                if ($this->$this->parameterBag->has('genemu.form.image.thumbnails')) {
-                    $thumbnails = $this->$this->parameterBag->get('genemu.form.image.thumbnails');
+                if ($this->parameterBag->has('genemu.form.image.thumbnails')) {
+                    $thumbnails = $this->parameterBag->get('genemu.form.image.thumbnails');
 
                     foreach ($thumbnails as $name => $thumbnail) {
                         $handle->createThumbnail($name, $thumbnail[0], $thumbnail[1]);
@@ -52,8 +52,8 @@ readonly class UploadController
 
                     if (0 < count($thumbnails)) {
                         $selected = key(reset($thumbnails));
-                        if ($this->$this->parameterBag->has('genemu.form.image.selected')) {
-                            $selected = $this->$this->parameterBag->get('genemu.form.image.selected');
+                        if ($this->parameterBag->has('genemu.form.image.selected')) {
+                            $selected = $this->parameterBag->get('genemu.form.image.selected');
                         }
 
                         $thumbnail = $handle->getThumbnail($selected);

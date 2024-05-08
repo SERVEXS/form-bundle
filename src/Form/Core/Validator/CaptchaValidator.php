@@ -34,7 +34,7 @@ readonly class CaptchaValidator implements EventSubscriberInterface
         $data = $event->getData();
 
         if (
-            $this->captcha->getLength() !== strlen($data)
+            $this->captcha->getLength() !== strlen((string) $data)
             || $this->captcha->getCode() !== $this->captcha->encode($data)
         ) {
             $form->addError(new FormError('The captcha is invalid.'));

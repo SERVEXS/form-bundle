@@ -27,11 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Select2LanguageType extends AbstractType
 {
-    private $configs;
-
-    public function __construct(array $configs = [])
+    public function __construct(private array $configs = [])
     {
-        $this->configs = $configs;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

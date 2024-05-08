@@ -24,20 +24,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ImageType extends AbstractType
 {
-    private $selected;
-    private $thumbnails;
-    private $filters;
-
     /**
      * Constructs.
      *
      * @param string $selected
      */
-    public function __construct($selected, array $thumbnails, array $filters)
+    public function __construct(private $selected, private readonly array $thumbnails, private array $filters)
     {
-        $this->selected = $selected;
-        $this->thumbnails = $thumbnails;
-        $this->filters = $filters;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

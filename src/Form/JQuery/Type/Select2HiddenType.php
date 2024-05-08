@@ -29,11 +29,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Select2HiddenType extends AbstractType
 {
-    private $configs;
-
-    public function __construct(array $configs = [])
+    public function __construct(private array $configs = [])
     {
-        $this->configs = $configs;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

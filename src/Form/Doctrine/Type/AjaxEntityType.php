@@ -25,11 +25,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AjaxEntityType extends AbstractType
 {
-    private ManagerRegistry $registry;
-
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(private ManagerRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

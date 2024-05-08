@@ -19,17 +19,15 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
 class Strip extends Gd implements Filter
 {
     protected $colors;
-    protected $nb;
 
     /**
      * Construct.
      *
      * @param int $nb
      */
-    public function __construct(array $colors, $nb = 15)
+    public function __construct(array $colors, protected $nb = 15)
     {
         $this->colors = $colors;
-        $this->nb = $nb;
     }
 
     public function apply()

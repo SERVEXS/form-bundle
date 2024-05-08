@@ -24,11 +24,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TokeninputType extends AbstractType
 {
-    private $widget;
-
-    public function __construct($widget)
+    public function __construct(private $widget)
     {
-        $this->widget = $widget;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -58,7 +55,7 @@ class TokeninputType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $datas = json_decode($form->getViewData(), true);
+        $datas = json_decode((string) $form->getViewData(), true);
         $value = '';
 
         if (!empty($datas)) {

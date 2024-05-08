@@ -18,16 +18,13 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Rotate extends Gd implements Filter
 {
-    protected $rotate;
-
     /**
      * Construct.
      *
      * @param int $rotate
      */
-    public function __construct($rotate)
+    public function __construct(protected $rotate)
     {
-        $this->rotate = $rotate;
     }
 
     public function apply()

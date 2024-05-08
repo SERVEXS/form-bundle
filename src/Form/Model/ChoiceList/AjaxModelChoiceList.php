@@ -23,7 +23,6 @@ use Symfony\Component\PropertyAccess\PropertyPath;
  */
 class AjaxModelChoiceList extends ModelChoiceList
 {
-    private $ajax;
     private $propertyPath;
 
     /**
@@ -35,10 +34,8 @@ class AjaxModelChoiceList extends ModelChoiceList
      * @param QueryObject   $qo
      * @param bool          $ajax
      */
-    public function __construct($class, $property = null, $choices = [], $qo = null, $ajax = false)
+    public function __construct($class, $property = null, $choices = [], $qo = null, private $ajax = false)
     {
-        $this->ajax = $ajax;
-
         if ($property) {
             $this->propertyPath = new PropertyPath($property);
         }

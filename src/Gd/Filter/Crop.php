@@ -18,11 +18,6 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Crop extends Gd implements Filter
 {
-    protected $x;
-    protected $y;
-    protected $w;
-    protected $h;
-
     /**
      * Construct.
      *
@@ -31,12 +26,8 @@ class Crop extends Gd implements Filter
      * @param int $w
      * @param int $h
      */
-    public function __construct($x, $y, $w, $h)
+    public function __construct(protected $x, protected $y, protected $w, protected $h)
     {
-        $this->x = $x;
-        $this->y = $y;
-        $this->w = $w;
-        $this->h = $h;
     }
 
     public function apply()

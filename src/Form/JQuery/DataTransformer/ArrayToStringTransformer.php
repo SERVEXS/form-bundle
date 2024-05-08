@@ -33,6 +33,6 @@ class ArrayToStringTransformer implements DataTransformerInterface
             return $string;
         }
 
-        return explode(',', $string);
+        return explode(',', (string) $string);
     }
 }

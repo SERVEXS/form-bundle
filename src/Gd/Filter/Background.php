@@ -18,16 +18,13 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Background extends Gd implements Filter
 {
-    protected $color;
-
     /**
      * Construct.
      *
      * @param string $color
      */
-    public function __construct($color)
+    public function __construct(protected $color)
     {
-        $this->color = $color;
     }
 
     public function apply()

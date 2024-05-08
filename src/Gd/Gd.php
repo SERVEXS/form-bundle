@@ -286,19 +286,19 @@ class Gd implements GdInterface
     {
         $color = preg_replace('/[^0-9A-Fa-f]/', '', $color);
 
-        if (3 === strlen($color)) {
-            $color = preg_replace('/(?(?=[^0-9a-f])[^.]|(.))/i', '$1$1', $color);
+        if (3 === strlen((string) $color)) {
+            $color = preg_replace('/(?(?=[^0-9a-f])[^.]|(.))/i', '$1$1', (string) $color);
         }
 
-        if (6 !== strlen($color)) {
+        if (6 !== strlen((string) $color)) {
             throw new Exception(sprintf('Color #%s is not exactly.', $color));
         }
 
-        $color = hexdec($color);
+        $hexColor = hexdec((string) $color);
         $array = [
-            0xFF & ($color >> 0x10),
-            0xFF & ($color >> 0x8),
-            0xFF & $color,
+            0xFF & ($hexColor >> 0x10),
+            0xFF & ($hexColor >> 0x8),
+            0xFF & $hexColor,
         ];
 
         return $asString ? implode($separator, $array) : $array;

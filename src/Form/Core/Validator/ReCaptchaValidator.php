@@ -27,16 +27,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ReCaptchaValidator implements EventSubscriberInterface
 {
     private array $httpRequest;
-    private Request $request;
+    private readonly Request $request;
     private string $privateKey;
-    private array $options;
 
-    public function __construct(RequestStack $requestStack, ?string $privateKey, array $options = [])
+    public function __construct(RequestStack $requestStack, ?string $privateKey, private array $options = [])
     {
-        $this->options = $options;
         $this->request = $requestStack->getMainRequest();
 
-        if (empty($options['code'])) {
+        if (empty($this->options['code'])) {
             if (empty($privateKey)) {
                 throw new InvalidConfigurationException('The child node "private_key" at path "genenu_form.recaptcha" must be configured.');
             }

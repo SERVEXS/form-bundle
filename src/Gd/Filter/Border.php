@@ -18,19 +18,14 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Border extends Gd implements Filter
 {
-    protected $color;
-    protected $size;
-
     /**
      * Construct.
      *
      * @param string $color
      * @param int    $size
      */
-    public function __construct($color, $size = 1)
+    public function __construct(protected $color, protected $size = 1)
     {
-        $this->color = $color;
-        $this->size = $size;
     }
 
     public function apply()

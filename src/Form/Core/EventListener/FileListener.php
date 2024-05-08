@@ -38,7 +38,7 @@ class FileListener implements EventSubscriberInterface
         }
 
         if ($this->multiple) {
-            $paths = explode(',', $data);
+            $paths = explode(',', (string) $data);
             $return = [];
 
             foreach ($paths as $path) {
@@ -69,7 +69,7 @@ class FileListener implements EventSubscriberInterface
         if (is_file($path)) {
             $handle = new File($path);
 
-            if (str_contains($handle->getMimeType(), 'image')) {
+            if (str_contains((string) $handle->getMimeType(), 'image')) {
                 $handle = new Image($handle->getPathname());
             }
 

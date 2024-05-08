@@ -19,17 +19,8 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class FileToValueTransformer implements DataTransformerInterface
 {
-    protected string $rootDir;
-
-    protected bool $multiple;
-
-    protected string $folder;
-
-    public function __construct(string $rootDir, string $folder, bool $multiple = false)
+    public function __construct(protected string $rootDir, protected string $folder, protected bool $multiple = false)
     {
-        $this->rootDir = $rootDir;
-        $this->multiple = $multiple;
-        $this->folder = $folder;
     }
 
     public function transform(mixed $datas)
@@ -70,8 +61,8 @@ class FileToValueTransformer implements DataTransformerInterface
 
     private function stripQueryString($file)
     {
-        if (false !== ($pos = strpos($file, '?'))) {
-            $file = substr($file, 0, $pos);
+        if (false !== ($pos = strpos((string) $file, '?'))) {
+            $file = substr((string) $file, 0, $pos);
         }
 
         return $file;

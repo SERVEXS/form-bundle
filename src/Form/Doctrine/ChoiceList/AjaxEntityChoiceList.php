@@ -26,8 +26,6 @@ use Symfony\Component\PropertyAccess\PropertyPath;
  */
 class AjaxEntityChoiceList extends LazyChoiceList
 {
-    private $ajax;
-
     private $propertyPath;
 
     private $classMetadata;
@@ -49,9 +47,8 @@ class AjaxEntityChoiceList extends LazyChoiceList
         $qb = null,
         $choices = null,
         $groupBy = null,
-        $ajax = false
+        private $ajax = false
     ) {
-        $this->ajax = $ajax;
         $this->classMetadata = $em->getClassMetadata($class);
 
         if ($property) {

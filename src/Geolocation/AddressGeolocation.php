@@ -18,19 +18,13 @@ use Serializable;
  */
 class AddressGeolocation implements Serializable
 {
-    private $address;
-    private $latitude;
-    private $longitude;
-    private $locality;
-    private $country;
-
-    public function __construct($address, $latitude = null, $longitude = null, $locality = null, $country = null)
-    {
-        $this->address = $address;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->locality = $locality;
-        $this->country = $country;
+    public function __construct(
+        private $address,
+        private $latitude = null,
+        private $longitude = null,
+        private $locality = null,
+        private $country = null
+    ) {
     }
 
     public function getAddress()

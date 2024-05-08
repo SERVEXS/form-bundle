@@ -28,21 +28,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ReCaptchaType extends AbstractType
 {
-    private EventSubscriberInterface $validator;
-    private string $publicKey;
-    private string $serverUrl;
-    private array $options;
+    private readonly string $publicKey;
 
-    public function __construct(EventSubscriberInterface $validator, $publicKey, $serverUrl, array $options)
-    {
+    public function __construct(
+        private readonly EventSubscriberInterface $validator,
+        $publicKey,
+        private readonly string $serverUrl,
+        private readonly array $options
+    ) {
         if (empty($publicKey)) {
             throw new RuntimeException('The child node "public_key" at path "genenu_form.captcha" must be configured.');
         }
-
-        $this->validator = $validator;
         $this->publicKey = $publicKey;
-        $this->serverUrl = $serverUrl;
-        $this->options = $options;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

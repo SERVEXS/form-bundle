@@ -18,9 +18,6 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Text extends Gd implements Filter
 {
-    protected $text;
-    protected $fontSize;
-
     protected $fonts;
     protected $colors;
 
@@ -30,11 +27,9 @@ class Text extends Gd implements Filter
      * @param string $text
      * @param int    $fontSize
      */
-    public function __construct($text, $fontSize, array $fonts, array $colors)
+    public function __construct(protected $text, protected $fontSize, array $fonts, array $colors)
     {
-        $this->text = $text;
         $this->colors = $colors;
-        $this->fontSize = $fontSize;
 
         foreach ($fonts as $index => $font) {
             if (is_file($font)) {
@@ -47,7 +42,7 @@ class Text extends Gd implements Filter
     {
         $colors = $this->allocateColors($this->colors);
 
-        $len = strlen($this->text);
+        $len = strlen((string) $this->text);
         $nbF = count($this->fonts) - 1;
         $nbC = count($colors) - 1;
 
@@ -65,7 +60,7 @@ class Text extends Gd implements Filter
             $font = $this->fonts[random_int(0, $nbF)];
             $color = $colors[random_int(0, $nbC)];
 
-            $box = imagettfbbox($size, $rotate, $font, $this->text[$i]);
+            $box = imagettfbbox($size, $rotate, $font, (string) $this->text[$i]);
 
             $fw = max($box[2] - $box[0], $box[4] - $box[6]);
 
@@ -95,7 +90,7 @@ class Text extends Gd implements Filter
                 $text['y'],
                 $text['color'],
                 $text['font'],
-                $text['value']
+                (string) $text['value']
             );
 
             $x += $text['x'];

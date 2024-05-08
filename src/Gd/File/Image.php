@@ -34,7 +34,7 @@ class Image extends File
     {
         parent::__construct($path, $checkPath);
 
-        if (!str_contains($this->getMimeType(), 'image')) {
+        if (!str_contains((string) $this->getMimeType(), 'image')) {
             throw new Exception(sprintf('Is not an image file. (%s)', $this->getMimeType()));
         }
     }

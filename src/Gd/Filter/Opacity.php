@@ -18,11 +18,8 @@ use Genemu\Bundle\FormBundle\Gd\Gd;
  */
 class Opacity extends Gd implements Filter
 {
-    protected $opacity;
-
-    public function __construct($opacity)
+    public function __construct(protected $opacity)
     {
-        $this->opacity = $opacity;
     }
 
     public function apply()

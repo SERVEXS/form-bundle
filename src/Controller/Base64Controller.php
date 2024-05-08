@@ -26,7 +26,7 @@ readonly class Base64Controller
     {
     }
 
-    public function refreshCaptchaAction(Request $request)
+    public function refreshCaptchaAction(Request $request): Response
     {
         $captcha = $this->captcha;
         $options = $request->getSession()->get('genemu_form.captcha.options', []);
@@ -36,9 +36,9 @@ readonly class Base64Controller
         return new Response(base64_decode($datas[2]), 200, ['Content-Type' => $datas[0]]);
     }
 
-    public function base64Action(Request $request)
+    public function base64Action(Request $request): Response
     {
-        $query = $request->server->get('QUERY_STRING');
+        $query = (string) $request->server->get('QUERY_STRING');
         $datas = preg_split('([;,]{1})', $query);
 
         return new Response(base64_decode($datas[2]), 200, ['Content-Type' => $datas[0]]);

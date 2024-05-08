@@ -28,14 +28,8 @@ use Symfony\Component\PropertyAccess\PropertyPath;
  */
 class AutocompleteType extends AbstractType
 {
-    private $type;
-
-    private ManagerRegistry $registry;
-
-    public function __construct($type, ?ManagerRegistry $registry = null)
+    public function __construct(private $type, private ?ManagerRegistry $registry = null)
     {
-        $this->type = $type;
-        $this->registry = $registry;
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

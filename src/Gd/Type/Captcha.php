@@ -26,7 +26,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class Captcha extends Gd
 {
     protected $session;
-    protected $secret;
     protected $code;
 
     protected $width;
@@ -51,10 +50,9 @@ class Captcha extends Gd
      *
      * @param string $secret
      */
-    public function __construct(Session $session, $secret)
+    public function __construct(Session $session, protected $secret)
     {
         $this->session = $session;
-        $this->secret = $secret;
         $this->key = 'genemu_form.captcha';
     }
 

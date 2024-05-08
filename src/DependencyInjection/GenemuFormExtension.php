@@ -103,12 +103,12 @@ class GenemuFormExtension extends Extension
             unset($configs['fonts']);
         }
 
-        $backgroundColor = preg_replace('/[^0-9A-Fa-f]/', '', $configs['background_color']);
+        $backgroundColor = preg_replace('/[^0-9A-Fa-f]/', '', (string) $configs['background_color']);
         if (!in_array(strlen($backgroundColor), [3, 6], true)) {
             $configs['background_color'] = 'DDDDDD';
         }
 
-        $borderColor = preg_replace('/[^0-9A-Fa-f]/', '', $configs['border_color']);
+        $borderColor = preg_replace('/[^0-9A-Fa-f]/', '', (string) $configs['border_color']);
         if (!in_array(strlen($borderColor), [3, 6], true)) {
             $configs['border_color'] = '000000';
         }
@@ -228,7 +228,7 @@ class GenemuFormExtension extends Extension
         $reflection = new ReflectionClass('Genemu\\Bundle\\FormBundle\\Gd\\File\\Image');
 
         foreach ($configs['filters'] as $filter) {
-            if ($reflection->hasMethod('addFilter' . ucfirst($filter))) {
+            if ($reflection->hasMethod('addFilter' . ucfirst((string) $filter))) {
                 $filters[] = $filter;
             }
         }

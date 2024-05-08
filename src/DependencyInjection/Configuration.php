@@ -67,7 +67,7 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue(range(0, 9))
                             ->beforeNormalization()
                                 ->ifTrue(fn ($v) => !is_array($v))
-                                ->then(fn ($v) => str_split($v))
+                                ->then(fn ($v) => str_split((string) $v))
                             ->end()
                             ->beforeNormalization()
                                 ->always()
@@ -82,7 +82,7 @@ class Configuration implements ConfigurationInterface
                             ->beforeNormalization()
                                 ->always()
                                 ->then(fn($v) => array_filter($v, function ($v) {
-                                    $v = preg_replace('/[^0-9A-Fa-f]/', '', $v);
+                                    $v = preg_replace('/[^0-9A-Fa-f]/', '', (string) $v);
 
                                     return in_array(strlen($v), [3, 6]);
                                 }))

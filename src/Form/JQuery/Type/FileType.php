@@ -28,7 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class FileType extends AbstractType
 {
-    public function __construct(private array $options, private string $rootDir)
+    public function __construct(private array $options, private readonly string $rootDir)
     {
     }
 
