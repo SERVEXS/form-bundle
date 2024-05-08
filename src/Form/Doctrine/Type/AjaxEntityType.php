@@ -44,17 +44,15 @@ class AjaxEntityType extends AbstractType
             'choices' => null,
             'group_by' => null,
             'ajax' => false,
-            'choice_list' => function (Options $options, $previousValue) {
-                return new AjaxEntityChoiceList(
-                    $options['em'],
-                    $options['class'],
-                    $options['property'],
-                    $options['query_builder'],
-                    $options['choices'],
-                    $options['group_by'],
-                    $options['ajax']
-                );
-            },
+            'choice_list' => fn(Options $options, $previousValue) => new AjaxEntityChoiceList(
+                $options['em'],
+                $options['class'],
+                $options['property'],
+                $options['query_builder'],
+                $options['choices'],
+                $options['group_by'],
+                $options['ajax']
+            ),
         ]);
     }
 
