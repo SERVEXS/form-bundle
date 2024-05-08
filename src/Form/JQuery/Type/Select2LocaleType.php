@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 
 /**
  * Select2LocaleType to JQueryLib.
@@ -37,7 +38,7 @@ class Select2LocaleType extends AbstractType
         // Adds a custom block prefix
         array_splice(
             $view->vars['block_prefixes'],
-            array_search($this->getBlockPrefix() . 'Select2LocaleType.php' . $view->vars['name'], $view->vars['block_prefixes']),
+            array_search($this->getBlockPrefix() .  $view->vars['name'], $view->vars['block_prefixes']),
             0,
             'genemu_jqueryselect2'
         );
@@ -60,7 +61,7 @@ class Select2LocaleType extends AbstractType
 
     public function getParent(): ?string
     {
-        return 'Symfony\Component\Form\Extension\Core\Type\LocaleType';
+        return LocaleType::class;
     }
 
     public function getBlockPrefix(): string

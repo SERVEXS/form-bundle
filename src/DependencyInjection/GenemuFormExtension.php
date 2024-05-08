@@ -21,6 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Genemu\Bundle\FormBundle\Gd\File\Image;
 
 /**
  * GenemuFormExtension.
@@ -225,7 +226,7 @@ class GenemuFormExtension extends Extension
         }
 
         $filters = [];
-        $reflection = new ReflectionClass('Genemu\\Bundle\\FormBundle\\Gd\\File\\Image');
+        $reflection = new ReflectionClass(Image::class);
 
         foreach ($configs['filters'] as $filter) {
             if ($reflection->hasMethod('addFilter' . ucfirst((string) $filter))) {

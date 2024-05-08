@@ -12,6 +12,7 @@
 namespace Genemu\Bundle\FormBundle\Form\JQuery\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,7 +46,7 @@ class SliderType extends AbstractType
 
     public function getParent(): ?string
     {
-        return \Symfony\Component\Form\Extension\Core\Type\IntegerType::class;
+        return IntegerType::class;
     }
 
     public function getBlockPrefix(): string
