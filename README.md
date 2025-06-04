@@ -1,5 +1,7 @@
 # FormBundle
 
+**this library is forked many times adding support for SF2+, use at your own risk!!!**
+
 [![Build Status](https://secure.travis-ci.org/genemu/GenemuFormBundle.png)](https://travis-ci.org/genemu/GenemuFormBundle)
 
 ## Installation
@@ -15,7 +17,7 @@ Installation is quick and easy, 3 steps process
 Run the following command :
 
 ``` bash
-$ composer require stoakes/form-bundle
+$ composer require servexs/form-bundle
 ```
 
 ### Step 2: Enable the bundle
@@ -38,7 +40,7 @@ public function registerBundles()
 ### Step 3: Initialize assets
 
 ``` bash
-$ php app/console assets:install web/
+$ php app/console assets:install public/
 ```
 
 ## Form types
