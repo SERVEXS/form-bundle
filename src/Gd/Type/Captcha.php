@@ -82,7 +82,7 @@ class Captcha extends Gd
         $options = array_intersect_key($options, $defaultOptions);
 
         foreach ($options as $key => $values) {
-            $key = preg_replace_callback('/_([a-z])/', fn($v) => strtoupper($v[1]), $key);
+            $key = preg_replace_callback('/_([a-z])/', fn ($v) => strtoupper($v[1]), $key);
 
             if ('fonts' === $key) {
                 foreach ($values as $value) {
