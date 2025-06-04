@@ -18,7 +18,7 @@ use Genemu\Bundle\FormBundle\Gd\Filter\Strip;
 use Genemu\Bundle\FormBundle\Gd\Filter\Text;
 use Genemu\Bundle\FormBundle\Gd\Gd;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @author Olivier Chauvel <olivier@generation-multiple.com>
@@ -50,9 +50,8 @@ class Captcha extends Gd
      *
      * @param string $secret
      */
-    public function __construct(Session $session, protected $secret)
+    public function __construct(protected RequestStack $requestStack, protected $secret)
     {
-        $this->session = $session;
         $this->key = 'genemu_form.captcha';
     }
 
@@ -96,7 +95,7 @@ class Captcha extends Gd
             $this->$key = $values;
         }
 
-        $this->session->set($this->key . '.options', $options);
+        $this->requestStack->getSession()->set($this->key . '.options', $options);
     }
 
     public function getBase64($format = 'png')
@@ -161,7 +160,7 @@ class Captcha extends Gd
      */
     public function setCode($code): void
     {
-        $this->session->set($this->key, $this->encode($code));
+        $this->requestStack->getSession()->set($this->key, $this->encode($code));
     }
 
     /**
@@ -171,7 +170,7 @@ class Captcha extends Gd
      */
     public function getCode()
     {
-        return $this->session->get($this->key);
+        return $this->requestStack->getSession()->get($this->key);
     }
 
     /**
@@ -179,7 +178,7 @@ class Captcha extends Gd
      */
     public function removeCode(): void
     {
-        $this->session->remove($this->key);
+        $this->requestStack->getSession()->remove($this->key);
     }
 
     /**
