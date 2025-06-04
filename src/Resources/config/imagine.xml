@@ -6,7 +6,7 @@
 
     <services>
         <service id="genemu.gd.captcha" class="Genemu\Bundle\FormBundle\Gd\Type\Captcha" public="true">
-            <argument type="service" id="session" />
+            <argument type="service" id="request_stack" />
             <argument>%kernel.secret%</argument>
         </service>
     </services>
